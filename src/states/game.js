@@ -79,7 +79,7 @@ class Game extends Phaser.State {
       //  body1 is the transmission
       body1.isDeleted = true;
       //  body2 is the thing it bumped in to
-
+      this.endGame();
     }
 
 makeStars() {
@@ -112,9 +112,7 @@ makeDebris(){
       newCrate.angle = this.game.rnd.integerInRange(-180, 180)
       spaceDebris.push(newCrate)
   }
-  console.log("min rock : " + this.game.global.level.minRocks);
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
-  console.log("rock count: " + numDebris);
   for (let i = 0;i<numDebris;i++){
       let newRock = new Rock(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
       newRock.angle = this.game.rnd.integerInRange(-180, 180)
@@ -178,7 +176,7 @@ makeDebris(){
         font: '42px Arial', fill: '#ffffff', align: 'center'
       });
       text.anchor.set(0.5);
-      
+
       this.game.time.events.add(2000, function() {
             //header.bg.remove()
             this.game.add.tween(text).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
@@ -224,7 +222,7 @@ makeDebris(){
     twinkleStars = [];
     this.resetGlobalVariables();
     transmissions = [];
-    this.game.state.start('gameover');
+    this.game.state.start('leveltransition');
   }
 
 }

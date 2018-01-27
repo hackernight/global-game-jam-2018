@@ -1,11 +1,11 @@
-class GameOver extends Phaser.State {
+class LevelTransition extends Phaser.State {
 
   constructor() {
     super();
   }
 
   create() {
-    const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Gameover', {
+    const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Message Received!', {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
     text.anchor.set(0.5);
@@ -27,9 +27,9 @@ class GameOver extends Phaser.State {
 
   restartGame() {
     this.resetGlobalVariables();
-    this.game.state.start('menu');
+    this.game.state.start('game');
   }
 
 }
 
-export default GameOver;
+export default LevelTransition;
