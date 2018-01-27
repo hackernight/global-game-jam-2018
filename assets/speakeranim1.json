@@ -1,0 +1,50 @@
+{ "frames": {
+   "speakeranim1 0.ase": {
+    "frame": { "x": 0, "y": 0, "w": 16, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
+    "sourceSize": { "w": 16, "h": 26 },
+    "duration": 100
+   },
+   "speakeranim1 1.ase": {
+    "frame": { "x": 16, "y": 0, "w": 16, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
+    "sourceSize": { "w": 16, "h": 26 },
+    "duration": 100
+   },
+   "speakeranim1 2.ase": {
+    "frame": { "x": 32, "y": 0, "w": 16, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
+    "sourceSize": { "w": 16, "h": 26 },
+    "duration": 100
+   },
+   "speakeranim1 3.ase": {
+    "frame": { "x": 48, "y": 0, "w": 16, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 26 },
+    "sourceSize": { "w": 16, "h": 26 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.6",
+  "image": "/home/home/Documents/dev/global-game-jam-2018/assets/speakeranim1.png",
+  "format": "RGBA8888",
+  "size": { "w": 64, "h": 26 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
