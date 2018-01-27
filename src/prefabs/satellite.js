@@ -4,7 +4,8 @@ class Satellite extends Phaser.Sprite {
 
   constructor(game, x, y, isStart) {
     super(game, x, y, 'start-satellite')
-    if (isStart==false) {
+    this.isTargetSatellite = isStart;
+    if (this.isTargetSatellite==false) {
       this.tint = 0x00aaff
       this.speaker = new Speaker(this.game, x+15, y-10);
 }
@@ -18,7 +19,12 @@ class Satellite extends Phaser.Sprite {
     this.body.setRectangle(40,40);
   }
 
-  update() {}
+  update() {
+    if (this.isTargetSatellite==true) {
+      this.body.angle = Math.sin(this.game.time.time * 1/500) * 5
+    }
+
+  }
 
 }
 
