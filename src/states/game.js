@@ -39,36 +39,38 @@ class Game extends Phaser.State {
         transmission.body.damping= 0;
         transmission.body.mass= 0.1;
         //transmission.body.velocity.x = 4000;
+        console.log("pre:" + transmission.body.angle)
+        transmission.body.angle = this.physics.arcade.angleToPointer(transmission) * 180 / Math.PI + 90;
+        console.log("post:" + transmission.body.angle)
+
         transmission.body.thrust(4000);
     }
 
 
 
  update() {
-      //1. angleToPointer makes no assumption over our current angle- th thinks it's always 0
-      //2. so include the current rotation of our sprite in the expression
-      //3. subtract Math.PI/2 as the angle of atan2 (which is sued by angleToPointer) is rotated by 90deg (this is Math.PI/2)
+      // //1. angleToPointer makes no assumption over our current angle- th thinks it's always 0
+      // //2. so include the current rotation of our sprite in the expression
+      // //3. subtract Math.PI/2 as the angle of atan2 (which is sued by angleToPointer) is rotated by 90deg (this is Math.PI/2)
     
-      //Result: Now we have a delta value that if applied directly to rotation would yield
-      //in a value so that the sprites top center points to the mouse.
-      this.deltaMouseRad = this.startSatellite.rotation - this.physics.arcade.angleToPointer(this.startSatellite) - Math.PI/2;
+      // //Result: Now we have a delta value that if applied directly to rotation would yield
+      // //in a value so that the sprites top center points to the mouse.
+      // this.deltaMouseRad = this.startSatellite.rotation - this.physics.arcade.angleToPointer(this.startSatellite) - Math.PI/2;
       
-      //don't be confused. I want the P of 'Phaser' to point to the mouse so rotate it again by -90deg
-      this.deltaMouseRad = this.deltaMouseRad - Math.PI/2
+      // //don't be confused. I want the P of 'Phaser' to point to the mouse so rotate it again by -90deg
+      // this.deltaMouseRad = this.deltaMouseRad - Math.PI/2
     
-      let mod = Math.PI * 2
-      //modulo on float, works in js, means: clamp value to [-Math.PI*2,Math.PI*2]
-      this.deltaMouseRad = this.deltaMouseRad % mod; 
+      // let mod = Math.PI * 2
+      // //modulo on float, works in js, means: clamp value to [-Math.PI*2,Math.PI*2]
+      // this.deltaMouseRad = this.deltaMouseRad % mod; 
       
-      //lets call it phase shift, angle would jump, lets fix it
-      if (this.deltaMouseRad != this.deltaMouseRad % (mod/2) ) { 
-        this.deltaMouseRad = (this.deltaMouseRad < 0) ? this.deltaMouseRad + mod : this.deltaMouseRad - mod;
-      }
-      //speed is some factor to get the object faster to the target rotation.
-      //remember we are wotking with the angle velocity and let the engine
-      //rotate the body
-      let speed = 150
-      this.startSatellite.body.rotateLeft(speed * this.deltaMouseRad);
+      // //lets call it phase shift, angle would jump, lets fix it
+      // if (this.deltaMouseRad != this.deltaMouseRad % (mod/2) ) { 
+      //   this.deltaMouseRad = (this.deltaMouseRad < 0) ? this.deltaMouseRad + mod : this.deltaMouseRad - mod;
+      // }
+      
+      //this.startSatellite.body.angle = this.physics.arcade.angleToPointer(this.startSatellite) ;
+      console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
     }
 
   endGame() {
