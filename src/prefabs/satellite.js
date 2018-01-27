@@ -1,9 +1,12 @@
+import Speaker from '../prefabs/speaker'
+
 class Satellite extends Phaser.Sprite {
 
   constructor(game, x, y, isStart) {
     super(game, x, y, 'start-satellite')
-    if (isStart) {
+    if (isStart==false) {
       this.tint = 0x00aaff
+      this.speaker = new Speaker(this.game, x+15, y-10);
 }
     this.isStart = isStart;
 

@@ -2,6 +2,7 @@ import Satellite from '../prefabs/satellite'
 import Transmission from '../prefabs/transmission'
 import Star from '../prefabs/star'
 import Crate from '../prefabs/crate'
+import Speaker from '../prefabs/speaker'
 
 
 var twinkleStars = [];
@@ -18,14 +19,26 @@ class Game extends Phaser.State {
 
   create() {
 
+    this.physics.startSystem(Phaser.Physics.P2JS);
+    this.physics.p2.setImpactEvents(true);
+    this.physics.p2.restitution = 0.8;
+
+    //stuff for the background
+    this.makeStars()
+    this.makeDebris()
+
     const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, this.game.global.level.name, {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
     text.anchor.set(0.5);
+    console.log(this.game.global.numResets);
 
-    this.physics.startSystem(Phaser.Physics.P2JS);
-    this.physics.p2.setImpactEvents(true);
-    this.physics.p2.restitution = 0.8;
+    if (this.game.global.numResets> 0){
+      const text = this.add.text(100, 50, this.game.global.numResets + " broken hearts", {
+        font: '24px Arial', fill: '#ffffff', align: 'center'
+      });
+      text.anchor.set(0.5);
+    }
 
     // create some collision groups
     this.transmissionCollisionGroup = this.physics.p2.createCollisionGroup();
@@ -39,19 +52,20 @@ class Game extends Phaser.State {
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
+    this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR, Phaser.Keyboard).onDown.add(this.rerollLevel, this);
 
     this.levelMusic = this.game.add.audio(this.game.global.level.levelMusic)
     this.levelMusic.loopFull(0.6)
 
-    this.makeStars()
-    this.makeDebris()
     this.input.onDown.add(this.endGame, this);
 
   }
 
     fireTransmission() {
+      this.startSatellite.speaker.pulse();
+
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
-        
+
         transmission.body.setCollisionGroup(this.transmissionCollisionGroup);
         transmission.body.damping= 0;
         transmission.body.mass= 0.1;
@@ -120,7 +134,7 @@ makeDebris(){
      transmissions.splice(dtx, 1);
 
    }
-   deadTransmissions = []; 
+   deadTransmissions = [];
 
       // //1. angleToPointer makes no assumption over our current angle- th thinks it's always 0
       // //2. so include the current rotation of our sprite in the expression
@@ -146,6 +160,18 @@ makeDebris(){
       //console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
     }
 
+    rerollLevel(){
+      console.log("rerolling level");
+      this.game.global.currentLevel = this.game.global.currentLevel - 1;
+      this.game.global.numResets = this.game.global.numResets + 1;
+
+      this.levelMusic.stop();
+      twinkleStars = [];
+      this.resetGlobalVariables();
+      transmissions = [];
+      this.game.state.start('giveuponlove');
+    }
+
     resetGlobalVariables(){
       var currentLevel = this.game.global.currentLevel + 1;
       var levels = this.game.cache.getJSON('levels');
@@ -158,14 +184,14 @@ makeDebris(){
       this.game.global = {
         dev_mode: true,
         currentLevel:currentLevel,
-        level: nextLevel
+        level: nextLevel,
+        numResets: this.game.global.numResets
       }
     }
 
 
   endGame() {
-
-    //this.levelMusic.stop();
+    this.levelMusic.stop();
     twinkleStars = [];
     this.resetGlobalVariables();
     transmissions = [];
