@@ -42,9 +42,11 @@ class Game extends Phaser.State {
     this.satelliteCollisionGroup = this.physics.p2.createCollisionGroup();
     this.physics.p2.updateBoundsCollisionGroup();
 
-    this.startSatellite = new Satellite(this.game, 50, 500, false);
+    this.startSatellite = new Satellite(this.game, this.game.width/10, 500, false);
     this.startSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
-    this.targetSatellite = new Satellite(this.game, 1300, 100, true);
+
+    let targetX = this.game.width-(this.game.width/10)
+    this.targetSatellite = new Satellite(this.game, targetX, 100, true);
     this.targetSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
