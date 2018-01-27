@@ -28,11 +28,7 @@ class Game extends Phaser.State {
     this.makeStars()
     this.makeDebris()
 
-    const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, this.game.global.level.name, {
-      font: '42px Arial', fill: '#ffffff', align: 'center'
-    });
-    text.anchor.set(0.5);
-    console.log(this.game.global.numResets);
+    this.displayLevelName();
 
     if (this.game.global.numResets> 0){
       const text = this.add.text(100, 50, this.game.global.numResets + " broken hearts", {
@@ -168,6 +164,22 @@ makeDebris(){
 
       //this.startSatellite.body.angle = this.physics.arcade.angleToPointer(this.startSatellite) ;
       //console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
+    }
+
+    displayLevelName(){
+      const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, this.game.global.level.name, {
+        font: '42px Arial', fill: '#ffffff', align: 'center'
+      });
+      text.anchor.set(0.5);
+      
+      this.game.time.events.add(2000, function() {
+            //header.bg.remove()
+            this.game.add.tween(text).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
+            this.game.add.tween(text).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
+          }, this);
+      this.game.time.events.add(4000, function() {
+        text.destroy()
+      })
     }
 
     rerollLevel(){
