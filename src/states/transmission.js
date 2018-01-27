@@ -5,6 +5,7 @@ class Transmission extends Phaser.Sprite {
 
     game.physics.enable(this, Phaser.Physics.P2JS);
     game.add.existing(this)
+    
 
   }
 
