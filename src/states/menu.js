@@ -1,3 +1,7 @@
+
+
+import TitleGraphic from '../prefabs/titleGraphic'
+
 class Menu extends Phaser.State {
 
   constructor() {
@@ -5,10 +9,12 @@ class Menu extends Phaser.State {
   }
 
   create() {
-    const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'MENU', {
+    /*const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'MENU', {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
-    text.anchor.set(0.5);
+    text.anchor.set(0.5);*/
+
+    let title = new TitleGraphic(this.game)
 
     this.input.onDown.add(this.startGame, this);
   }
