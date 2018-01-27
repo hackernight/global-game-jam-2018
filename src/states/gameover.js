@@ -3,7 +3,7 @@ class Menu extends Phaser.State {
   constructor() {
     super();
   }
-// making a change because i can
+
   create() {
     const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Gameover', {
       font: '42px Arial', fill: '#ffffff', align: 'center'
