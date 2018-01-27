@@ -24,6 +24,13 @@ class Game extends Phaser.State {
     this.physics.p2.setImpactEvents(true);
     this.physics.p2.restitution = 0.8;
 
+    // create some collision groups
+    this.transmissionCollisionGroup = this.physics.p2.createCollisionGroup();
+    this.satelliteCollisionGroup = this.physics.p2.createCollisionGroup();
+    this.crateCollisionGroup = this.physics.p2.createCollisionGroup();
+    this.rockCollisionGroup = this.physics.p2.createCollisionGroup();
+    this.physics.p2.updateBoundsCollisionGroup();
+
     //stuff for the background
     this.makeStars()
     this.makeDebris()
@@ -37,10 +44,7 @@ class Game extends Phaser.State {
       text.anchor.set(0.5);
     }
 
-    // create some collision groups
-    this.transmissionCollisionGroup = this.physics.p2.createCollisionGroup();
-    this.satelliteCollisionGroup = this.physics.p2.createCollisionGroup();
-    this.physics.p2.updateBoundsCollisionGroup();
+
 
     this.startSatellite = new Satellite(this.game, this.game.width/10, 500, false);
     this.startSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
@@ -73,6 +77,8 @@ class Game extends Phaser.State {
         transmission.body.angle = this.physics.arcade.angleToPointer(transmission) * 180 / Math.PI + 90;
         transmission.angle = transmission.body.angle + 90;
         transmission.body.collides(this.satelliteCollisionGroup, this.hitSatellite, this);
+        transmission.body.collides(this.crateCollisionGroup,this.hitCrate,this);
+        transmission.body.collides(this.rockCollisionGroup,this.hitRock,this);
 
         transmission.body.thrust(4000);
 
@@ -84,6 +90,15 @@ class Game extends Phaser.State {
       body1.isDeleted = true;
       //  body2 is the thing it bumped in to
       this.endGame();
+    }
+
+    hitCrate(body1,body2){
+      //play a sound?
+      body1.isDeleted = true;
+    }
+
+    hitRock(body1,body2){
+      //play a sound?
     }
 
 makeStars() {
@@ -114,12 +129,20 @@ makeDebris(){
   for (let i = 0;i<numDebris;i++){
       let newCrate = new Crate(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
       newCrate.angle = this.game.rnd.integerInRange(-180, 180)
+      newCrate.body.damping= 0;
+      newCrate.body.mass= 0.1;
+      newCrate.body.setCollisionGroup(this.crateCollisionGroup);
+      newCrate.body.collides(this.transmissionCollisionGroup);
       spaceDebris.push(newCrate)
   }
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
   for (let i = 0;i<numDebris;i++){
       let newRock = new Rock(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
       newRock.angle = this.game.rnd.integerInRange(-180, 180)
+      newRock.body.damping= 0;
+      newRock.body.mass= 0.1;
+      newRock.body.setCollisionGroup(this.rockCollisionGroup);
+      newRock.body.collides(this.transmissionCollisionGroup);
       spaceDebris.push(newRock)
   }
 
