@@ -40,6 +40,7 @@ class Game extends Phaser.State {
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
+    this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR, Phaser.Keyboard).onDown.add(this.rerollLevel, this);
 
     this.levelMusic = this.game.add.audio(this.game.global.level.levelMusic)
     this.levelMusic.loopFull(0.6)
@@ -147,6 +148,17 @@ makeDebris(){
       //console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
     }
 
+    rerollLevel(){
+      console.log("rerolling level");
+      this.game.global.currentLevel = this.game.global.currentLevel - 1;
+
+        this.levelMusic.stop();
+        twinkleStars = [];
+        this.resetGlobalVariables();
+        transmissions = [];
+        this.game.state.start('game');
+    }
+
     resetGlobalVariables(){
       var currentLevel = this.game.global.currentLevel + 1;
       var levels = this.game.cache.getJSON('levels');
@@ -165,7 +177,6 @@ makeDebris(){
 
 
   endGame() {
-
     this.levelMusic.stop();
     twinkleStars = [];
     this.resetGlobalVariables();
