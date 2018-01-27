@@ -128,12 +128,13 @@ makeDebris(){
    }
 
    for (var tx of transmissions){
+     if (!tx.body) {
+       continue;
+     }
     let angle = Math.atan2(tx.body.velocity.y, tx.body.velocity.x );
-
     angle = angle * (180/Math.PI);
     tx.body.angle = angle;
-
-     if (tx.body && tx.body.isDeleted==true) {
+     if (tx.body.isDeleted==true) {
       tx.bringOutYerDead();
       deadTransmissions.push(transmissions.indexOf(tx));
      }

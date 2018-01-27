@@ -29,12 +29,13 @@ class Transmission extends Phaser.Sprite {
        this.y > this.game.height ||
        this.y < 0
      ) {
-    if(this.body) {
-      this.body.isDeleted = true;
+      if(this.body) {
+        this.body.isDeleted = true;
+      }
+      this.kill();
+      this.destroy();
     }
-    this.kill();
-    this.destroy();
   }
-
 }
+
 export default Transmission;
