@@ -20,10 +20,19 @@ class Game extends Phaser.State {
     text.anchor.set(0.5);
 
     this.physics.startSystem(Phaser.Physics.P2JS);
-    this.physics.p2.defaultRestitution = 0.8;
+    this.physics.p2.setImpactEvents(true);
+    this.physics.p2.restitution = 0.8;
+    
+    // create some collision groups
+    this.transmissionCollisionGroup = this.physics.p2.createCollisionGroup();
+    this.satelliteCollisionGroup = this.physics.p2.createCollisionGroup();
+    this.physics.p2.updateBoundsCollisionGroup();
 
     this.startSatellite = new Satellite(this.game, 50, 500, false);
-    this.targetSatellite = new Satellite(this.game, 5, 5, true);
+    this.startSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
+    this.targetSatellite = new Satellite(this.game, 450, 400, true);
+    this.targetSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
+    this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
 
@@ -34,11 +43,21 @@ class Game extends Phaser.State {
 
     fireTransmission() {
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
+        transmission.body.setCollisionGroup(this.transmissionCollisionGroup)
         transmission.body.damping= 0;
         transmission.body.mass= 0.1;
         transmission.body.angle = this.physics.arcade.angleToPointer(transmission) * 180 / Math.PI + 90;
+        transmission.body.collides(this.satelliteCollisionGroup);
+        transmission.body.collides(this.satelliteCollisionGroup, this.hitSatellite, this);
+      
+        transmission.body.thrust(4000);
+    }
 
-        transmission.body.thrust(40000);
+    hitSatellite(body1, body2) {
+      //  body1 is the transmission
+      //  body2 is the thing it bumped in to
+      body2.sprite.alpha -= 0.25;
+
     }
 
 makeStars() {
@@ -91,7 +110,7 @@ for (let i = 0;i<numStars*2;i++){
       // }
 
       //this.startSatellite.body.angle = this.physics.arcade.angleToPointer(this.startSatellite) ;
-      console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
+      //console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
     }
 
   endGame() {
