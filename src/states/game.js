@@ -31,7 +31,14 @@ class Game extends Phaser.State {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
     text.anchor.set(0.5);
+    console.log(this.game.global.numResets);
 
+    if (this.game.global.numResets> 0){
+      const text = this.add.text(100, 50, this.game.global.numResets + " broken hearts", {
+        font: '24px Arial', fill: '#ffffff', align: 'center'
+      });
+      text.anchor.set(0.5);
+    }
 
     // create some collision groups
     this.transmissionCollisionGroup = this.physics.p2.createCollisionGroup();
@@ -154,12 +161,13 @@ makeDebris(){
     rerollLevel(){
       console.log("rerolling level");
       this.game.global.currentLevel = this.game.global.currentLevel - 1;
+      this.game.global.numResets = this.game.global.numResets + 1;
 
-        this.levelMusic.stop();
-        twinkleStars = [];
-        this.resetGlobalVariables();
-        transmissions = [];
-        this.game.state.start('giveuponlove');
+      this.levelMusic.stop();
+      twinkleStars = [];
+      this.resetGlobalVariables();
+      transmissions = [];
+      this.game.state.start('giveuponlove');
     }
 
     resetGlobalVariables(){
@@ -174,7 +182,8 @@ makeDebris(){
       this.game.global = {
         dev_mode: true,
         currentLevel:currentLevel,
-        level: nextLevel
+        level: nextLevel,
+        numResets: this.game.global.numResets
       }
     }
 
