@@ -4,6 +4,8 @@ import Star from '../prefabs/star'
 
 
 var twinkleStars = [];
+var transmissions = [];
+var deadTransmissions = [];
 
 class Game extends Phaser.State {
 
@@ -43,20 +45,22 @@ class Game extends Phaser.State {
 
     fireTransmission() {
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
-        transmission.body.setCollisionGroup(this.transmissionCollisionGroup)
+        
+        transmission.body.setCollisionGroup(this.transmissionCollisionGroup);
         transmission.body.damping= 0;
         transmission.body.mass= 0.1;
         transmission.body.angle = this.physics.arcade.angleToPointer(transmission) * 180 / Math.PI + 90;
-        transmission.body.collides(this.satelliteCollisionGroup);
         transmission.body.collides(this.satelliteCollisionGroup, this.hitSatellite, this);
-      
+
         transmission.body.thrust(4000);
+
+        transmissions.push(transmission);
     }
 
     hitSatellite(body1, body2) {
       //  body1 is the transmission
+      body1.isDeleted = true;
       //  body2 is the thing it bumped in to
-      body2.sprite.alpha -= 0.25;
 
     }
 
@@ -89,6 +93,18 @@ for (let i = 0;i<numStars*2;i++){
      ts.checkTwinkle();
    }
 
+   for (var tx of transmissions){
+     if (tx.body.isDeleted==true) {
+      tx.bringOutYerDead();
+      deadTransmissions.push(transmissions.indexOf(tx));
+     }
+   }
+   for (var dtx of deadTransmissions){
+     transmissions.splice(dtx, 1);
+
+   }
+   deadTransmissions = []; 
+
       // //1. angleToPointer makes no assumption over our current angle- th thinks it's always 0
       // //2. so include the current rotation of our sprite in the expression
       // //3. subtract Math.PI/2 as the angle of atan2 (which is sued by angleToPointer) is rotated by 90deg (this is Math.PI/2)
@@ -116,6 +132,7 @@ for (let i = 0;i<numStars*2;i++){
   endGame() {
 
       twinkleStars = [];
+      transmissions = [];
     this.game.state.start('gameover');
   }
 
