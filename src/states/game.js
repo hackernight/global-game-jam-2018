@@ -110,7 +110,7 @@ for (let i = 0;i<numStars*2;i++){
       // }
 
       //this.startSatellite.body.angle = this.physics.arcade.angleToPointer(this.startSatellite) ;
-      console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
+      //console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
     }
 
   endGame() {
