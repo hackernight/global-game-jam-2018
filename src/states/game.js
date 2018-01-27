@@ -1,5 +1,5 @@
-import Satellite from './satellite'
-import Transmission from './transmission'
+import Satellite from '../prefabs/satellite'
+import Transmission from '../prefabs/transmission'
 
 class Game extends Phaser.State {
 
@@ -26,24 +26,17 @@ class Game extends Phaser.State {
 
     this.input.onDown.add(this.endGame, this);
     
-    //this.cursors = this.input.keyboard.createCursorKeys();
-
   }
 
 
 
     fireTransmission() {
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
-        //transmission.body.rotateRight(1000);
-        //transmission.body.rotateRight(0);
         transmission.body.damping= 0;
         transmission.body.mass= 0.1;
-        //transmission.body.velocity.x = 4000;
-        console.log("pre:" + transmission.body.angle)
         transmission.body.angle = this.physics.arcade.angleToPointer(transmission) * 180 / Math.PI + 90;
-        console.log("post:" + transmission.body.angle)
 
-        transmission.body.thrust(4000);
+        transmission.body.thrust(40000);
     }
 
 
