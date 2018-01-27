@@ -2,6 +2,7 @@ import Satellite from '../prefabs/satellite'
 import Transmission from '../prefabs/transmission'
 import Star from '../prefabs/star'
 import Crate from '../prefabs/crate'
+import Speaker from '../prefabs/speaker'
 
 
 var twinkleStars = [];
@@ -50,8 +51,10 @@ class Game extends Phaser.State {
   }
 
     fireTransmission() {
+      this.startSatellite.speaker.pulse();
+
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
-        
+
         transmission.body.setCollisionGroup(this.transmissionCollisionGroup);
         transmission.body.damping= 0;
         transmission.body.mass= 0.1;
@@ -118,7 +121,7 @@ makeDebris(){
      transmissions.splice(dtx, 1);
 
    }
-   deadTransmissions = []; 
+   deadTransmissions = [];
 
       // //1. angleToPointer makes no assumption over our current angle- th thinks it's always 0
       // //2. so include the current rotation of our sprite in the expression
@@ -163,7 +166,7 @@ makeDebris(){
 
   endGame() {
 
-    //this.levelMusic.stop();
+    this.levelMusic.stop();
     twinkleStars = [];
     this.resetGlobalVariables();
     transmissions = [];
