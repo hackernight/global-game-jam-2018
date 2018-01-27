@@ -87,7 +87,7 @@ for (let i = 0;i<numStars*2;i++){
 }
 
 makeDebris(){
-  let numDebris = this.game.rnd.integerInRange(2, 5)
+  let numDebris = this.game.rnd.integerInRange(this.game.global.level.minCrates, this.game.global.level.maxCrates)
   for (let i = 0;i<numDebris;i++){
       let newCrate = new Crate(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
       newCrate.angle = this.game.rnd.integerInRange(-180, 180)

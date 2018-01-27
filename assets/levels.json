@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Lonely Satellite",
+    "minCrates": 2,
+    "maxCrates": 5,
+    "lastLevel":false
+  },
+  {
+    "id": 2,
+    "name": "Transmission heard?",
+    "minCrates": 5,
+    "maxCrates": 10,
+    "lastLevel":false
+  },
+  {
+    "id": 3,
+    "name": "Does anybody care?",
+    "minCrates": 10,
+    "maxCrates": 20,
+    "lastLevel":true
+  }
+]
