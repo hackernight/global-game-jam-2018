@@ -26,7 +26,7 @@ class Game extends Phaser.State {
 
     this.input.onDown.add(this.endGame, this);
     
-    this.cursors = this.input.keyboard.createCursorKeys();
+    //this.cursors = this.input.keyboard.createCursorKeys();
 
   }
 
