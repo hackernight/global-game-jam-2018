@@ -70,6 +70,7 @@ class Game extends Phaser.State {
         transmission.body.damping= 0;
         transmission.body.mass= 0.1;
         transmission.body.angle = this.physics.arcade.angleToPointer(transmission) * 180 / Math.PI + 90;
+        transmission.angle = transmission.body.angle + 90;
         transmission.body.collides(this.satelliteCollisionGroup, this.hitSatellite, this);
 
         transmission.body.thrust(4000);
@@ -125,6 +126,12 @@ makeDebris(){
     console.log("TransmissionCount: " + transmissions.length)
       
    for (var tx of transmissions){
+
+    let angle = Math.atan2(tx.body.velocity.y, tx.body.velocity.x );
+
+    angle = angle * (180/Math.PI);
+    tx.body.angle = angle;
+
      if (tx.body.isDeleted==true) {
       tx.bringOutYerDead();
       deadTransmissions.push(transmissions.indexOf(tx));
