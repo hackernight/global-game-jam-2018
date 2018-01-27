@@ -21,7 +21,7 @@ class Game extends Phaser.State {
 
     this.physics.startSystem(Phaser.Physics.P2JS);
     this.physics.p2.setImpactEvents(true);
-    this.physics.p2.defaultRestitution = 0.8;
+    this.physics.p2.restitution = 0.8;
     
     // create some collision groups
     this.transmissionCollisionGroup = this.physics.p2.createCollisionGroup();
@@ -29,8 +29,11 @@ class Game extends Phaser.State {
     this.physics.p2.updateBoundsCollisionGroup();
 
     this.startSatellite = new Satellite(this.game, 50, 500, false);
-    this.targetSatellite = new Satellite(this.game, 5, 5, true);
-    
+    this.startSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
+    this.targetSatellite = new Satellite(this.game, 450, 400, true);
+    this.targetSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
+    this.targetSatellite.body.collides(this.transmissionCollisionGroup);
+
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
 
     this.makeStars()
@@ -38,31 +41,54 @@ class Game extends Phaser.State {
 
   }
 
-
-
     fireTransmission() {
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
+        transmission.body.setCollisionGroup(this.transmissionCollisionGroup)
         transmission.body.damping= 0;
         transmission.body.mass= 0.1;
         transmission.body.angle = this.physics.arcade.angleToPointer(transmission) * 180 / Math.PI + 90;
+        transmission.body.collides(this.satelliteCollisionGroup);
+        transmission.body.collides(this.satelliteCollisionGroup, this.hitSatellite, this);
+      
+        transmission.body.thrust(4000);
+    }
 
-        transmission.body.thrust(40000);
+    hitSatellite(body1, body2) {
+      //  body1 is the transmission
+      //  body2 is the thing it bumped in to
+      body2.sprite.alpha -= 0.25;
+
     }
 
 makeStars() {
 
-let numStars = this.game.rnd.integerInRange(10, 20)
-
+let numStars = this.game.rnd.integerInRange(30, 50)
 
 for (let i = 0;i<numStars;i++){
-    twinkleStars.push(new Star(this.game, this.game.rnd.integerInRange(10, 1000), this.game.rnd.integerInRange(10, 700)))
+    let newstar = new Star(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768), true)
+    let scale = this.game.rnd.realInRange(.1, 1)
+    newstar.scale.setTo(scale, scale);
+    newstar.angle = this.game.rnd.integerInRange(0, 10)
+    twinkleStars.push(newstar)
 }
 
-  //this.game.rnd.integerInRange(2, (maxTiles-3)/2)
+//and sprinkle in more tiny stars that don't twinkle, because you couldn't see it anyway
+for (let i = 0;i<numStars*2;i++){
+    let newstar = new Star(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768), false)
+    let scale = this.game.rnd.realInRange(.01, .25)
+    newstar.scale.setTo(scale, scale);
+    newstar.angle = this.game.rnd.integerInRange(0, 10)
+}
+
+
 }
 
 
  update() {
+   for (var ts of twinkleStars) {
+     ts.checkTwinkle();
+   }
+
       // //1. angleToPointer makes no assumption over our current angle- th thinks it's always 0
       // //2. so include the current rotation of our sprite in the expression
       // //3. subtract Math.PI/2 as the angle of atan2 (which is sued by angleToPointer) is rotated by 90deg (this is Math.PI/2)
@@ -88,6 +114,8 @@ for (let i = 0;i<numStars;i++){
     }
 
   endGame() {
+
+      twinkleStars = [];
     this.game.state.start('gameover');
   }
 
