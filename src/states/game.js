@@ -1,8 +1,11 @@
+import Satellite from './satellite'
+
 class Game extends Phaser.State {
 
   constructor() {
     super();
   }
+
 
   create() {
     const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Game', {
@@ -10,8 +13,15 @@ class Game extends Phaser.State {
     });
     text.anchor.set(0.5);
 
+
+    new Satellite(this.game, 50, 500, false);
+
+    new Satellite(this.game, 5, 5, true);
+
     this.input.onDown.add(this.endGame, this);
   }
+
+
 
   update() {
 
