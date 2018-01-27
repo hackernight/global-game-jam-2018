@@ -129,10 +129,7 @@ makeDebris(){
       newCrate.angle = this.game.rnd.integerInRange(-180, 180)
       newCrate.body.damping= 0;
       newCrate.body.mass= 0.1;
-      console.log(this);
-      console.log(this.crateCollisionGroup);
       newCrate.body.setCollisionGroup(this.crateCollisionGroup);
-
       newCrate.body.collides(this.transmissionCollisionGroup);
       spaceDebris.push(newCrate)
   }
@@ -140,6 +137,10 @@ makeDebris(){
   for (let i = 0;i<numDebris;i++){
       let newRock = new Rock(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
       newRock.angle = this.game.rnd.integerInRange(-180, 180)
+      newRock.body.damping= 0;
+      newRock.body.mass= 0.1;
+      newRock.body.setCollisionGroup(this.rockCollisionGroup);
+      newRock.body.collides(this.transmissionCollisionGroup);
       spaceDebris.push(newRock)
   }
 
