@@ -5,8 +5,16 @@ class Transmission extends Phaser.Sprite {
 
     game.physics.enable(this, Phaser.Physics.P2JS);
     game.add.existing(this)
+    this.body.isDeleted = false;
+    this.body.setCircle(25);
     
 
+  }
+
+  bringOutYerDead(){
+    if (this.body && this.body.isDeleted==true){
+      this.destroy();
+    }
   }
 
   update() {}

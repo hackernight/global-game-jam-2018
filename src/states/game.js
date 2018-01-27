@@ -1,9 +1,13 @@
 import Satellite from '../prefabs/satellite'
 import Transmission from '../prefabs/transmission'
 import Star from '../prefabs/star'
+import Crate from '../prefabs/crate'
 
 
 var twinkleStars = [];
+var transmissions = [];
+var deadTransmissions = [];
+var spaceDebris  =[];
 
 class Game extends Phaser.State {
 
@@ -14,7 +18,7 @@ class Game extends Phaser.State {
 
   create() {
 
-    const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Game', {
+    const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, this.game.global.level.name, {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
     text.anchor.set(0.5);
@@ -22,7 +26,7 @@ class Game extends Phaser.State {
     this.physics.startSystem(Phaser.Physics.P2JS);
     this.physics.p2.setImpactEvents(true);
     this.physics.p2.restitution = 0.8;
-    
+
     // create some collision groups
     this.transmissionCollisionGroup = this.physics.p2.createCollisionGroup();
     this.satelliteCollisionGroup = this.physics.p2.createCollisionGroup();
@@ -36,27 +40,33 @@ class Game extends Phaser.State {
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
 
+    this.levelMusic = this.game.add.audio(this.game.global.level.levelMusic)
+    this.levelMusic.loopFull(0.6)
+
     this.makeStars()
+    this.makeDebris()
     this.input.onDown.add(this.endGame, this);
 
   }
 
     fireTransmission() {
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
-        transmission.body.setCollisionGroup(this.transmissionCollisionGroup)
+        
+        transmission.body.setCollisionGroup(this.transmissionCollisionGroup);
         transmission.body.damping= 0;
         transmission.body.mass= 0.1;
         transmission.body.angle = this.physics.arcade.angleToPointer(transmission) * 180 / Math.PI + 90;
-        transmission.body.collides(this.satelliteCollisionGroup);
         transmission.body.collides(this.satelliteCollisionGroup, this.hitSatellite, this);
-      
+
         transmission.body.thrust(4000);
+
+        transmissions.push(transmission);
     }
 
     hitSatellite(body1, body2) {
       //  body1 is the transmission
+      body1.isDeleted = true;
       //  body2 is the thing it bumped in to
-      body2.sprite.alpha -= 0.25;
 
     }
 
@@ -83,11 +93,32 @@ for (let i = 0;i<numStars*2;i++){
 
 }
 
+makeDebris(){
+  let numDebris = this.game.rnd.integerInRange(this.game.global.level.minCrates, this.game.global.level.maxCrates)
+  for (let i = 0;i<numDebris;i++){
+      let newCrate = new Crate(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
+      newCrate.angle = this.game.rnd.integerInRange(-180, 180)
+      spaceDebris.push(newCrate)
+  }
+}
+
 
  update() {
    for (var ts of twinkleStars) {
      ts.checkTwinkle();
    }
+
+   for (var tx of transmissions){
+     if (tx.body.isDeleted==true) {
+      tx.bringOutYerDead();
+      deadTransmissions.push(transmissions.indexOf(tx));
+     }
+   }
+   for (var dtx of deadTransmissions){
+     transmissions.splice(dtx, 1);
+
+   }
+   deadTransmissions = []; 
 
       // //1. angleToPointer makes no assumption over our current angle- th thinks it's always 0
       // //2. so include the current rotation of our sprite in the expression
@@ -113,9 +144,29 @@ for (let i = 0;i<numStars*2;i++){
       //console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
     }
 
+    resetGlobalVariables(){
+      var currentLevel = this.game.global.currentLevel + 1;
+      var levels = this.game.cache.getJSON('levels');
+      var nextLevel = null;
+      for(var level of levels){
+        if (level && level.id === currentLevel){
+          nextLevel = level;
+        }
+      }
+      this.game.global = {
+        dev_mode: true,
+        currentLevel:currentLevel,
+        level: nextLevel
+      }
+    }
+
+
   endGame() {
 
-      twinkleStars = [];
+    //this.levelMusic.stop();
+    twinkleStars = [];
+    this.resetGlobalVariables();
+    transmissions = [];
     this.game.state.start('gameover');
   }
 

@@ -28,6 +28,7 @@ class Preloader extends Phaser.State {
     this.game.load.audio('level4', ['assets/muzac/harmony.wav']);
     this.game.load.audio('bleepBloops', ['assets/muzac/bleepBloops.wav']);
 
+
     // setup loading and its events
     // this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     // this.loadResources();

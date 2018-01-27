@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Lonely Satellite",
+    "minCrates": 2,
+    "maxCrates": 5,
+    "levelMusic":"level1",
+    "lastLevel":false
+  },
+  {
+    "id": 2,
+    "name": "Is anybody out there?",
+    "minCrates": 5,
+    "maxCrates": 10,
+    "levelMusic":"level2",
+    "lastLevel":false
+  },
+  {
+    "id": 3,
+    "name": "Someone's listening!",
+    "minCrates": 10,
+    "maxCrates": 20,
+    "levelMusic":"level3",
+    "lastLevel":false
+  },
+  {
+    "id": 4,
+    "name": "Can two satellites find love?",
+    "minCrates": 20,
+    "maxCrates": 30,
+    "levelMusic":"level4",
+    "lastLevel":true
+  }
+]
