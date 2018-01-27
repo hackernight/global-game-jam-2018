@@ -3,6 +3,7 @@ import Transmission from '../prefabs/transmission'
 import Star from '../prefabs/star'
 import Crate from '../prefabs/crate'
 import Speaker from '../prefabs/speaker'
+import Rock from '../prefabs/rock'
 
 
 var twinkleStars = [];
@@ -47,7 +48,7 @@ class Game extends Phaser.State {
 
     this.startSatellite = new Satellite(this.game, 50, 500, false);
     this.startSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
-    this.targetSatellite = new Satellite(this.game, 450, 400, true);
+    this.targetSatellite = new Satellite(this.game, 1300, 100, true);
     this.targetSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
@@ -114,6 +115,15 @@ makeDebris(){
       newCrate.angle = this.game.rnd.integerInRange(-180, 180)
       spaceDebris.push(newCrate)
   }
+  console.log("min rock : " + this.game.global.level.minRocks);
+  numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
+  console.log("rock count: " + numDebris);
+  for (let i = 0;i<numDebris;i++){
+      let newRock = new Rock(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
+      newRock.angle = this.game.rnd.integerInRange(-180, 180)
+      spaceDebris.push(newRock)
+  }
+
 }
 
 
@@ -121,9 +131,9 @@ makeDebris(){
    for (var ts of twinkleStars) {
      ts.checkTwinkle();
    }
-   
+
     console.log("TransmissionCount: " + transmissions.length)
-      
+
    for (var tx of transmissions){
      if (tx.body.isDeleted==true) {
       tx.bringOutYerDead();
