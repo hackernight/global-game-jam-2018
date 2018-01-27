@@ -7,9 +7,9 @@ class Satellite extends Phaser.Sprite {
 }
     this.isStart = isStart;
 
-    //game.physics.enable(this, Phaser.Physics.P2JS);
-    game.add.existing(this)
-
+    game.physics.enable(this, Phaser.Physics.P2JS);
+    game.add.existing(this);
+    this.body.kinematic = true;
   }
 
   update() {}
