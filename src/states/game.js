@@ -1,9 +1,11 @@
 import Satellite from '../prefabs/satellite'
 import Transmission from '../prefabs/transmission'
 import Star from '../prefabs/star'
+import Crate from '../prefabs/crate'
 
 
 var twinkleStars = [];
+var spaceDebris  =[];
 
 class Game extends Phaser.State {
 
@@ -22,7 +24,7 @@ class Game extends Phaser.State {
     this.physics.startSystem(Phaser.Physics.P2JS);
     this.physics.p2.setImpactEvents(true);
     this.physics.p2.restitution = 0.8;
-    
+
     // create some collision groups
     this.transmissionCollisionGroup = this.physics.p2.createCollisionGroup();
     this.satelliteCollisionGroup = this.physics.p2.createCollisionGroup();
@@ -37,6 +39,7 @@ class Game extends Phaser.State {
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
 
     this.makeStars()
+    this.makeDebris()
     this.input.onDown.add(this.endGame, this);
 
   }
@@ -49,7 +52,7 @@ class Game extends Phaser.State {
         transmission.body.angle = this.physics.arcade.angleToPointer(transmission) * 180 / Math.PI + 90;
         transmission.body.collides(this.satelliteCollisionGroup);
         transmission.body.collides(this.satelliteCollisionGroup, this.hitSatellite, this);
-      
+
         transmission.body.thrust(4000);
     }
 
@@ -81,6 +84,15 @@ for (let i = 0;i<numStars*2;i++){
 }
 
 
+}
+
+makeDebris(){
+  let numDebris = this.game.rnd.integerInRange(2, 5)
+  for (let i = 0;i<numDebris;i++){
+      let newCrate = new Crate(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
+      newCrate.angle = this.game.rnd.integerInRange(-180, 180)
+      spaceDebris.push(newCrate)
+  }
 }
 
 
