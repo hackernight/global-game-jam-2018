@@ -51,12 +51,14 @@ class Game extends Phaser.State {
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
+    this.game.input.keyboard.addKey(Phaser.Keyboard.X, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
+    this.input.onDown.add(this.fireTransmission, this);
     this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR, Phaser.Keyboard).onDown.add(this.rerollLevel, this);
 
     this.levelMusic = this.game.add.audio(this.game.global.level.levelMusic)
     this.levelMusic.loopFull(0.6)
 
-    this.input.onDown.add(this.endGame, this);
+    this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT, Phaser.Keyboard).onDown.add(this.endGame, this);
 
   }
 
