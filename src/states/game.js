@@ -20,7 +20,6 @@ class Game extends Phaser.State {
     text.anchor.set(0.5);
 
     this.physics.startSystem(Phaser.Physics.P2JS);
-<<<<<<< HEAD
     this.physics.p2.setImpactEvents(true);
     this.physics.p2.restitution = 0.8;
     
@@ -34,12 +33,6 @@ class Game extends Phaser.State {
     this.targetSatellite = new Satellite(this.game, 450, 400, true);
     this.targetSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
-=======
-    this.physics.p2.defaultRestitution = 0.8;
-
-    this.startSatellite = new Satellite(this.game, 50, 500, false);
-    this.targetSatellite = new Satellite(this.game, 5, 5, true);
->>>>>>> 96074ffde8693194c63e23ec2c954b6b1b17ed60
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
 
