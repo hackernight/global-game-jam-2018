@@ -20,6 +20,7 @@ class Preloader extends Phaser.State {
 
     //sprites
     this.game.load.spritesheet('twinkle-star', 'assets/twinkleanim1-sheet.png', 39, 39, 2)
+    this.game.load.spritesheet('speaker-pulse', 'assets/speakeranim1.png', 16, 26, 4)
 
     //sounds
     this.game.load.audio('level1', ['assets/muzac/bass.wav']);
