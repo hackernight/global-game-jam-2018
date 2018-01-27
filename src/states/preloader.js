@@ -12,6 +12,7 @@ class Preloader extends Phaser.State {
     this.load.setPreloadSprite(this.asset);
 
     this.game.load.image('start-satellite', 'assets/satbase1.png')
+    this.game.load.image('radio-wave', 'assets/boopbase1.png')
 
     // setup loading and its events
     // this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
