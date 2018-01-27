@@ -7,7 +7,8 @@ class Satellite extends Phaser.Sprite {
     this.isTargetSatellite = isStart;
     if (this.isTargetSatellite==false) {
       this.tint = 0x00aaff
-      this.speaker = new Speaker(this.game, x+15, y-10);
+      this.speaker = new Speaker(this.game, -15, -5);
+      this.addChild(this.speaker);
 }
     this.isStart = isStart;
 
