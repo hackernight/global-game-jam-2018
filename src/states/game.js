@@ -107,7 +107,9 @@ makeDebris(){
    for (var ts of twinkleStars) {
      ts.checkTwinkle();
    }
-
+   
+    console.log("TransmissionCount: " + transmissions.length)
+      
    for (var tx of transmissions){
      if (tx.body.isDeleted==true) {
       tx.bringOutYerDead();

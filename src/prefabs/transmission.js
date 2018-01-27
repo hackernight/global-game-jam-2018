@@ -7,6 +7,9 @@ class Transmission extends Phaser.Sprite {
     game.add.existing(this)
     this.body.isDeleted = false;
     this.body.setCircle(25);
+    this.body.collideWorldBounds = false;
+    this.events.onOutOfBounds.add(this.iAmOuttaHere, this );
+    //this.outOfBoundsKill = true;
     
 
   }
@@ -16,6 +19,11 @@ class Transmission extends Phaser.Sprite {
       this.destroy();
     }
   }
+
+  iAmOuttaHere(){
+    console.log("i'm outta here")
+    this.body.isDeleted = true;
+  } 
 
   update() {}
 
