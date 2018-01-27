@@ -19,14 +19,19 @@ class Game extends Phaser.State {
 
   create() {
 
+    this.physics.startSystem(Phaser.Physics.P2JS);
+    this.physics.p2.setImpactEvents(true);
+    this.physics.p2.restitution = 0.8;
+
+    //stuff for the background
+    this.makeStars()
+    this.makeDebris()
+
     const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, this.game.global.level.name, {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
     text.anchor.set(0.5);
 
-    this.physics.startSystem(Phaser.Physics.P2JS);
-    this.physics.p2.setImpactEvents(true);
-    this.physics.p2.restitution = 0.8;
 
     // create some collision groups
     this.transmissionCollisionGroup = this.physics.p2.createCollisionGroup();
@@ -45,8 +50,6 @@ class Game extends Phaser.State {
     this.levelMusic = this.game.add.audio(this.game.global.level.levelMusic)
     this.levelMusic.loopFull(0.6)
 
-    this.makeStars()
-    this.makeDebris()
     this.input.onDown.add(this.endGame, this);
 
   }
@@ -156,7 +159,7 @@ makeDebris(){
         twinkleStars = [];
         this.resetGlobalVariables();
         transmissions = [];
-        this.game.state.start('game');
+        this.game.state.start('giveuponlove');
     }
 
     resetGlobalVariables(){
