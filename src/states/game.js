@@ -129,8 +129,6 @@ makeDebris(){
      ts.checkTwinkle();
    }
 
-    console.log("TransmissionCount: " + transmissions.length)
-
    for (var tx of transmissions){
 
     let angle = Math.atan2(tx.body.velocity.y, tx.body.velocity.x );
