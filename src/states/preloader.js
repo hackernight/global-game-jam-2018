@@ -17,6 +17,7 @@ class Preloader extends Phaser.State {
     this.game.load.image('crate-object', 'assets/cratebase1.png')
     this.game.load.image('chad-nebula', 'assets/markbase1.png')
     this.game.load.image('splash-header', 'assets/splashheader1_scaled.png')
+    this.game.load.image('space-rock', 'assets/spacerock48x48.png')
 
     //sprites
     this.game.load.spritesheet('twinkle-star', 'assets/twinkleanim1-sheet.png', 39, 39, 2)
@@ -24,9 +25,9 @@ class Preloader extends Phaser.State {
 
     //sounds
     this.game.load.audio('level1', ['assets/muzac/bass.wav']);
-    this.game.load.audio('level2', ['assets/muzac/drums.wav']);
-    this.game.load.audio('level3', ['assets/muzac/melody.wav']);
-    this.game.load.audio('level4', ['assets/muzac/harmony.wav']);
+    this.game.load.audio('level2', ['assets/muzac/bass_drums.wav']);
+    this.game.load.audio('level3', ['assets/muzac/bass_drums_melody.wav']);
+    this.game.load.audio('level4', ['assets/muzac/bass_drums_melody_harmony.wav']);
     this.game.load.audio('bleepBloops', ['assets/muzac/bleepBloops.wav']);
 
 
