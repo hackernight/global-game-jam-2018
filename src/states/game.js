@@ -16,7 +16,7 @@ class Game extends Phaser.State {
 
   create() {
 
-    const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Game', {
+    const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, this.game.global.level.name, {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
     text.anchor.set(0.5);
@@ -37,6 +37,9 @@ class Game extends Phaser.State {
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
+
+    this.levelMusic = this.game.add.audio(this.game.global.level.levelMusic)
+    this.levelMusic.loopFull(0.6)
 
     this.makeStars()
     this.makeDebris()
@@ -125,9 +128,28 @@ makeDebris(){
       //console.log("angleToPointer: " + (this.physics.arcade.angleToPointer(this.startSatellite) *  180 / Math.PI))
     }
 
+    resetGlobalVariables(){
+      var currentLevel = this.game.global.currentLevel + 1;
+      var levels = this.game.cache.getJSON('levels');
+      var nextLevel = null;
+      for(var level of levels){
+        if (level && level.id === currentLevel){
+          nextLevel = level;
+        }
+      }
+      this.game.global = {
+        dev_mode: true,
+        currentLevel:currentLevel,
+        level: nextLevel
+      }
+    }
+
+
   endGame() {
 
-      twinkleStars = [];
+    //this.levelMusic.stop();
+    twinkleStars = [];
+    this.resetGlobalVariables();
     this.game.state.start('gameover');
   }
 
