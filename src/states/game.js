@@ -98,7 +98,7 @@ class Game extends Phaser.State {
 
 
         this.game.allowedToFire = true;
-        this.game.time.events.loop(Phaser.Timer.SECOND, this.loadGun, this);
+        this.loadGun()
       }
 
 
@@ -112,12 +112,13 @@ class Game extends Phaser.State {
   fireTransmission() {
     if (this.game.allowedToFire == true){
       this.game.allowedToFire = false;
+      this.game.time.events.add(Phaser.Timer.SECOND, this.loadGun, this);
       this.startSatellite.speaker.tint = 0xf45c42
       this.fire.volume = 0.2;
       this.fire.play();
       this.startSatellite.speaker.pulse();
 
-        heartEmitter.start(true, this.startSatellite.body.y, null, 5)
+        heartEmitter.start(true, this.startSatellite.body.y, null, 1)
 
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
 
