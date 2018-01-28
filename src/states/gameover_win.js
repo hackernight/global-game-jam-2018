@@ -9,6 +9,7 @@ class GameOverWin extends Phaser.State {
   create() {
     //This allows for endless mode, it must go first.
     if(this.game.global.win === true) {
+      this.game.global.endlessModeCount = this.game.global.endlessModeCount+1;
       this.replay()
       return
     }
@@ -53,11 +54,13 @@ class GameOverWin extends Phaser.State {
         currentLevel: 1,
         level: levels[0],
         win: false,
-        numResets: 3
+        numResets: 3,
+        endlessModeCount: this.game.global.endlessModeCount
     };
   }
 
   continue() {
+    this.game.endlessModeCount = 0;
     this.replay()
   }
 

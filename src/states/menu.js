@@ -48,7 +48,8 @@ class Menu extends Phaser.State {
         currentLevel: 1,
         level: levels[0],
         win: false,
-        numResets: 3
+        numResets: 3,
+        endlessModeCount: 0
     };
   }
 

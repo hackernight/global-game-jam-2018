@@ -383,6 +383,12 @@ for (var bh of spaceDebris){
       this.game.time.events.add(4000, function() {
         text.destroy()
       })
+
+      if (this.game.global.endlessModeCount>0){
+        const text2 = this.add.text(10, this.game.height * 0.25, this.game.global.endlessModeCount + " connections", {
+          font: '42px VT323', fill: '#5eff96', align: 'center'
+        });
+      }
     }
 
     rerollLevel(){
@@ -424,7 +430,8 @@ for (var bh of spaceDebris){
         win: this.game.global.win,
         currentLevel: currentLevel,
         level: nextLevel,
-        numResets: this.game.global.numResets
+        numResets: this.game.global.numResets,
+        endlessModeCount: this.game.global.endlessModeCount
       }
     }
 
