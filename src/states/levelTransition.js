@@ -12,7 +12,10 @@ class LevelTransition extends Phaser.State {
 
     this.saveVarsToLocalStorage();
 
-    this.input.onDown.add(this.restartGame, this);
+    setTimeout(function(game) {
+     game.input.onDown.add(game.restartGame, game);
+   }, 2500, this)
+
   }
 
   saveVarsToLocalStorage() {
