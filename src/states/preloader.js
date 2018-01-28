@@ -36,6 +36,7 @@ class Preloader extends Phaser.State {
     this.game.load.spritesheet('studio', 'assets/studio-logo-sheet.png', 128, 128);
     this.game.load.spritesheet('give-up-button', 'assets/giveupanim1.png', 52, 66, 4);
     this.game.load.spritesheet('radio-anim','assets/boopanim1-sheet.png', 32, 32, 2);
+    this.game.load.spritesheet('chad-nebula','assets/nebulabase2_sheet.png', 64, 64, 4);
 
     //sounds
     this.game.load.audio('level1', ['assets/muzac/bass.wav']);
