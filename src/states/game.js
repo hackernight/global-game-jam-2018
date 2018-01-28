@@ -107,9 +107,40 @@ class Game extends Phaser.State {
     hitSatellite(body1, body2) {
       //  body1 is the transmission
       body1.isDeleted = true;
-      recipientHeartEmitter.start(true, this.startSatellite.body.y, null, 5)
+      recipientHeartEmitter.start(true, 6000, null, 25)
+      this.targetSatellite.isTargetSatellite = false; //stop moving
+
       //  body2 is the thing it bumped in to
-      this.endGame();
+
+          var timer = this.game.time.create(false)
+          timer.add(Phaser.Timer.SECOND * 2, () => {
+            this.endGame();
+          })
+
+          /*timer.add(Phaser.Timer.SECOND, () => {
+            let winMessage
+            let splashImage
+
+            this.successSound = this.game.add.audio('success')
+
+            if (this.game.ba.win === false) {
+              winMessage = "Nooo... my candy! q.q"
+              splashImage = new LoseAnimation(this.game)
+              this.message = new HeaderText(this.game, winMessage, 75)
+            } else {
+              winMessage = "My candy is safe!"
+              splashImage = new WinSplash(this.game)
+              this.message = new HeaderText(this.game, winMessage, this.game.height - 100)
+              this.game.ba.win = true
+              this.successSound.play()
+            }
+            this.gordie.destroy()
+            this.assetsToKill.push(splashImage)
+          })*/
+
+          timer.start()
+
+
     }
 
     hitCrate(body1,body2){
