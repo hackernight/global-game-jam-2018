@@ -25,10 +25,10 @@ class GameOverWin extends Phaser.State {
     });
     text2.anchor.set(0.5);
 
-    const text3 = this.add.text(this.game.width * 0.5, this.game.height * 0.5 + 44, 'Press \'R\' to go to the start', {
+    const text3 = this.add.text(this.game.width * 0.5, this.game.height * 0.5 + 68, 'Or quit and press \'R\' to go to the start', {
       font: '20px Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 6, align: 'center'
     });
-    text2.anchor.set(0.5);
+    text3.anchor.set(0.5);
 
     this.saveVarsToLocalStorage();
 
