@@ -7,6 +7,7 @@ import Rock from '../prefabs/rock'
 import BlackHole from '../prefabs/blackHole'
 import transmission from '../prefabs/transmission';
 import HeartEmitter from '../prefabs/heartEmitter'
+import Heart from '../prefabs/heart'
 
 
 var twinkleStars = [];
@@ -15,6 +16,7 @@ var deadTransmissions = [];
 var spaceDebris = [];
 var heartEmitter;
 var recipientHeartEmitter;
+var hearts =[];
 
 class Game extends Phaser.State {
 
@@ -46,11 +48,12 @@ class Game extends Phaser.State {
     //stuff for the background
     this.makeStars()
     this.makeDebris()
+    this.drawHearts()
 
     this.displayLevelName();
 
-    if (this.game.global.numResets> 0){
-      const text = this.add.text(100, 50, this.game.global.numResets + " broken hearts", {
+    if (this.game.global.numResets== 0){
+      const text = this.add.text(250, 50, "Your heart can't take more disappointment", {
         font: '24px Arial', fill: '#ffffff', align: 'center'
       });
       text.anchor.set(0.5);
@@ -216,6 +219,17 @@ makeDebris(){
   }
 
 }
+drawHearts() {
+
+let startPointX = 20;
+let startPointY = 20;
+
+for (let i = 0;i<this.game.global.numResets;i++){
+    let newHeart = new Heart(this.game, startPointX, startPointY, true)
+    hearts.push(newHeart)
+    startPointX = startPointX + 20;
+}
+}
 
 
  update() {
@@ -317,15 +331,16 @@ for (var bh of spaceDebris){
     }
 
     rerollLevel(){
-      console.log("rerolling level");
-      this.game.global.currentLevel = this.game.global.currentLevel - 1;
-      this.game.global.numResets = this.game.global.numResets + 1;
+      if (this.game.global.numResets > 0){
+        this.game.global.currentLevel = this.game.global.currentLevel - 1;
+        this.game.global.numResets = this.game.global.numResets - 1;
 
-      this.levelMusic.stop();
-      twinkleStars = [];
-      this.resetGlobalVariables();
-      transmissions = [];
-      this.game.state.start('giveuponlove');
+        this.levelMusic.stop();
+        twinkleStars = [];
+        this.resetGlobalVariables();
+        transmissions = [];
+        this.game.state.start('giveuponlove');
+      }
     }
 
     resetGlobalVariables(){
