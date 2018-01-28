@@ -6,16 +6,18 @@
     "maxCrates": 1,
     "minRocks": 7,
     "maxRocks": 9,
+    "blackHoles": 0,
     "levelMusic":"level1",
     "lastLevel":false
   },
   {
     "id": 2,
-    "name": "Is anybody out there?",
+    "name": "Is somebody out there?",
     "minCrates": 1,
     "maxCrates": 3,
     "minRocks": 10,
     "maxRocks": 14,
+    "blackHoles": 0,
     "levelMusic":"level2",
     "lastLevel":false
   },
@@ -26,6 +28,7 @@
     "maxCrates": 5,
     "minRocks": 14,
     "maxRocks": 18,
+    "blackHoles": 1,
     "levelMusic":"level3",
     "lastLevel":false
   },
@@ -36,6 +39,7 @@
     "maxCrates": 7,
     "minRocks": 18,
     "maxRocks": 22,
+    "blackHoles": 1,
     "levelMusic":"level4",
     "lastLevel":true
   }
