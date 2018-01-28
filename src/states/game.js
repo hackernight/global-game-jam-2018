@@ -117,7 +117,7 @@ class Game extends Phaser.State {
       this.fire.play();
       this.startSatellite.speaker.pulse();
 
-        heartEmitter.start(true, this.startSatellite.body.y, null, 5)
+        heartEmitter.start(true, this.startSatellite.body.y, null, 1)
 
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
 
