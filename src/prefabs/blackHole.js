@@ -6,7 +6,7 @@ class BlackHole extends Phaser.Sprite {
       super(game, x, y, 'black-hole')
 
       this.anchor.setTo(0.5, 0.5);
-      this.animations.add('black-hole', [0,1,2,3,4,5], 6, true);
+	  this.animations.add('black-hole', [4,5,6,7], 4, true);
       this.animations.play("black-hole");
   
         this.scale.x = this.game.global.level.blackHoleScale

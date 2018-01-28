@@ -55,14 +55,15 @@ class Game extends Phaser.State {
     this.displayLevelName();
 
     if (this.game.global.numResets== 0){
-      const text = this.add.text(300, 50, "Your heart can't take more disappointment", {
-        font: '24px Arial', fill: '#ffffff', align: 'center'
+      const text = this.add.text(200, 50, "Can't Take Anymore", {
+        font: '24px BEON', fill: '#ff5526', align: 'center'
       });
+      text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
       text.anchor.set(0.5);
 
       this.game.time.events.add(2000, function() {
             //header.bg.remove()
-            this.game.add.tween(text).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
+            this.game.add.tween(text).to({y: 0}, 2000, Phaser.Easing.Linear.None, true);
             this.game.add.tween(text).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
           }, this);
       this.game.time.events.add(4000, function() {
@@ -346,8 +347,9 @@ for (var bh of spaceDebris){
 
     displayLevelName(){
       const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, this.game.global.level.name, {
-        font: '42px Arial', fill: '#ffffff', align: 'center'
+        font: '42px VT323', fill: '#5eff96', align: 'center'
       });
+      text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
       text.anchor.set(0.5);
 
       this.game.time.events.add(2000, function() {
@@ -364,7 +366,10 @@ for (var bh of spaceDebris){
       this.reset.play();
       let nextscreen = 'giveuponlove';
       if (this.game.global.numResets > 0){
-        this.game.global.currentLevel = this.game.global.currentLevel - 1;
+        if (this.game.global.win == false){
+          //don't advance levels if we're in endless mode
+          this.game.global.currentLevel = this.game.global.currentLevel - 1;
+        }
         this.game.global.numResets = this.game.global.numResets - 1;
         nextscreen = 'rerollSplashScreen';
       }
@@ -378,7 +383,12 @@ for (var bh of spaceDebris){
     }
 
     resetGlobalVariables(){
-      var currentLevel = this.game.global.currentLevel + 1;
+      var currentLevel = this.game.global.currentLevel;
+      if (this.game.global.win == false){
+        //don't advance levels if we're in endless mode
+        currentLevel = currentLevel + 1;
+      }
+
       var levels = this.game.cache.getJSON('levels');
       var nextLevel = null;
       for(var level of levels){

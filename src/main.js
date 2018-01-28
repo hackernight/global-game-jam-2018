@@ -9,7 +9,7 @@ import LevelTransition from './states/levelTransition';
 import SplashScreen from './states/splashScreen';
 import RerollSplashScreen from './states/rerollSplashScreen'
 
-const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'global-game-jam-2018-game');
+const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'Cold Lonely Nights');
 
 game.state.add('boot', new Boot());
 game.state.add('game', new Game());
