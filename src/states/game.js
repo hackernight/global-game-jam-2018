@@ -4,12 +4,14 @@ import Star from '../prefabs/star'
 import Crate from '../prefabs/crate'
 import Speaker from '../prefabs/speaker'
 import Rock from '../prefabs/rock'
+import BlackHole from '../prefabs/blackHole'
+import transmission from '../prefabs/transmission';
 
 
 var twinkleStars = [];
 var transmissions = [];
 var deadTransmissions = [];
-var spaceDebris  =[];
+var spaceDebris = [];
 
 class Game extends Phaser.State {
 
@@ -29,7 +31,10 @@ class Game extends Phaser.State {
     this.satelliteCollisionGroup = this.physics.p2.createCollisionGroup();
     this.crateCollisionGroup = this.physics.p2.createCollisionGroup();
     this.rockCollisionGroup = this.physics.p2.createCollisionGroup();
+    this.blackHoleCollisionGroup = this.physics.p2.createCollisionGroup();
     this.physics.p2.updateBoundsCollisionGroup();
+
+    this.baseGravitySpeed = 10;
 
     //stuff for the background
     this.makeStars()
@@ -136,12 +141,26 @@ makeDebris(){
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
   for (let i = 0;i<numDebris;i++){
       let newRock = new Rock(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
+      
+
+      
       newRock.angle = this.game.rnd.integerInRange(-180, 180)
       newRock.body.damping= 0;
       newRock.body.mass= 0.1;
       newRock.body.setCollisionGroup(this.rockCollisionGroup);
       newRock.body.collides(this.transmissionCollisionGroup);
       spaceDebris.push(newRock)
+  }
+
+  numDebris = 1 //this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
+  for (let i = 0;i<numDebris;i++){
+      let newBH = new BlackHole(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
+      
+      newBH.angle = this.game.rnd.integerInRange(-180, 180)
+      newBH.body.damping= 0;
+      newBH.body.setCollisionGroup(this.blackHoleCollisionGroup);
+      newBH.body.collides(this.transmissionCollisionGroup);
+      spaceDebris.push(newBH)
   }
 
 }
@@ -156,19 +175,51 @@ makeDebris(){
      if (!tx.body) {
        continue;
      }
+     // reorient the radio wave graphic
     let angle = Math.atan2(tx.body.velocity.y, tx.body.velocity.x );
     angle = angle * (180/Math.PI);
     tx.body.angle = angle;
+    // clean up the dead radio waves
      if (tx.body.isDeleted==true) {
       tx.bringOutYerDead();
       deadTransmissions.push(transmissions.indexOf(tx));
      }
    }
+   //remove the dead radio waves from the array
    for (var dtx of deadTransmissions){
      transmissions.splice(dtx, 1);
 
    }
    deadTransmissions = [];
+
+//gravity accelleration
+for (var bh of spaceDebris){
+  // console.log(bh.type)
+  if (bh.type=="blackHole"){
+    for( var gtx of transmissions){
+      if(gtx.body && bh.body){
+        // console.log(bh)
+        // console.log("gtx x:" + gtx.body.x)
+        // console.log("gtx y:" + gtx.body.y)
+        // console.log("gtx mass:" + gtx.body.myMass)
+        // console.log("r x:" + bh.body.x)
+        // console.log("r y:" + bh.body.y)
+        // console.log("r mass:" + bh.body.myMass)
+        // console.log("distance:" + this.math.distance(gtx.x,gtx.y,bh.x,bh.y))
+        // console.log("accellerationforce:" + gtx.body.myMass * bh.body.myMass / (distance * distance))
+        var distance = this.math.distance(gtx.x,gtx.y,bh.x,bh.y);
+        var gravAngle = Math.atan2(bh.body.y - gtx.body.y, bh.body.x - gtx.body.x);
+        if(distance > 0){
+          gtx.body.force.x = gtx.body.force.x + Math.cos(gravAngle) * this.baseGravitySpeed * gtx.body.myMass * bh.body.myMass / (distance * distance);    // accelerateToObject 
+          gtx.body.force.y = gtx.body.force.y + Math.sin(gravAngle) * this.baseGravitySpeed * gtx.body.myMass * bh.body.myMass / (distance * distance);
+        }
+      }
+
+    } 
+  }
+}
+
+
 
       //1. angleToPointer makes no assumption over our current angle- th thinks it's always 0
        //2. so include the current rotation of our sprite in the expression

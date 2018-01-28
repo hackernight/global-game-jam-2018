@@ -11,6 +11,8 @@ class Rock extends Phaser.Sprite {
     this.body.isDeleted = false;
     this.body.setCircle(25);
     this.body.kinematic = true;
+    this.type = "rock";
+    this.body.myMass = 0;
 
 
   }
