@@ -4,12 +4,14 @@ import Star from '../prefabs/star'
 import Crate from '../prefabs/crate'
 import Speaker from '../prefabs/speaker'
 import Rock from '../prefabs/rock'
+import HeartEmitter from '../prefabs/heartEmitter'
 
 
 var twinkleStars = [];
 var transmissions = [];
 var deadTransmissions = [];
 var spaceDebris  =[];
+var heartEmitter;
 
 class Game extends Phaser.State {
 
@@ -54,6 +56,7 @@ class Game extends Phaser.State {
     this.targetSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
+        heartEmitter = new HeartEmitter(this.game, this.startSatellite.body.x, this.startSatellite.body.y)
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
     this.game.input.keyboard.addKey(Phaser.Keyboard.X, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
     this.input.onDown.add(this.fireTransmission, this);
@@ -68,6 +71,8 @@ class Game extends Phaser.State {
 
     fireTransmission() {
       this.startSatellite.speaker.pulse();
+
+        heartEmitter.start(true, this.startSatellite.body.y, null, 5)
 
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
 
