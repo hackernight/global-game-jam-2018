@@ -1,15 +1,14 @@
-const CenteredSprite = require('../prefabs/centeredSprite');
-
+import CenteredSprite from '../prefabs/centeredSprite'
 class SplashScreen extends Phaser.State {
 
    create() {
        this.input.onDown.add(this.skipIntro, this);
-
+		console.log("splashScreen")
        var self = this;
        this.game.input.keyboard.onPressCallback = function(e){
          self.skipIntro();}
 
-       const splash = new CenteredSprite(this.game, 'logo-stl');
+       const splash = new CenteredSprite(this.game, 'stl');
        splash.alpha = 0;
        const tween = this.game.add.tween(splash).to(
            {alpha: 1},
@@ -19,7 +18,7 @@ class SplashScreen extends Phaser.State {
        ).yoyo(true, 1000);
 
        tween.onComplete.add(() => {
-           const logo = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo-studio');
+           const logo = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'studio');
            logo.anchor.set(0.5);
            logo.scale.set(2);
 

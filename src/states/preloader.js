@@ -20,7 +20,8 @@ class Preloader extends Phaser.State {
     this.game.load.image('space-rock', 'assets/spacerock48x48.png')
     this.game.load.image('heartParticle', 'assets/lifeheartbase1.png')
     this.game.load.image('give-up', 'assets/giveupsplash1.png')
-
+    this.game.load.image('stl', 'assets/MadeInSTL.png');
+    this.game.load.spritesheet('studio', 'assets/studio-logo-sheet.png', 128, 128);
     //sprites
     this.game.load.spritesheet('twinkle-star', 'assets/twinkleanim1-sheet.png', 39, 39, 2)
     this.game.load.spritesheet('speaker-pulse', 'assets/speakeranim1.png', 16, 26, 4)
@@ -42,14 +43,11 @@ class Preloader extends Phaser.State {
     // this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     // this.loadResources();
   }
-    update() {
-        if (this.ready) {
-            this.game.state.start('splashScreen');
-        }
-    }
+
   update() {
     // if (this.ready) {
-    this.game.state.start('menu');
+	console.log("update statement")
+    this.game.state.start('splashScreen');
     // }
   }
 
