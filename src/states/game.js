@@ -45,6 +45,7 @@ class Game extends Phaser.State {
     this.bounce = this.game.add.audio('bounce');
     this.fire = this.game.add.audio('fire');
     this.victory = this.game.add.audio('victory');
+    this.reset = this.game.add.audio('reset');
 
     //stuff for the background
     this.makeStars()
@@ -346,6 +347,7 @@ for (var bh of spaceDebris){
     }
 
     rerollLevel(){
+      this.reset.play();
       let nextscreen = 'giveuponlove';
       if (this.game.global.numResets > 0){
         this.game.global.currentLevel = this.game.global.currentLevel - 1;
