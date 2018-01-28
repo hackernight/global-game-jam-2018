@@ -8,6 +8,7 @@ import BlackHole from '../prefabs/blackHole'
 import transmission from '../prefabs/transmission';
 import HeartEmitter from '../prefabs/heartEmitter'
 import Heart from '../prefabs/heart'
+import GiveUpButton from '../prefabs/GiveUpButton'
 
 
 var twinkleStars = [];
@@ -53,7 +54,7 @@ class Game extends Phaser.State {
     this.displayLevelName();
 
     if (this.game.global.numResets== 0){
-      const text = this.add.text(250, 50, "Your heart can't take more disappointment", {
+      const text = this.add.text(300, 50, "Your heart can't take more disappointment", {
         font: '24px Arial', fill: '#ffffff', align: 'center'
       });
       text.anchor.set(0.5);
@@ -86,6 +87,7 @@ class Game extends Phaser.State {
   }
 
     fireTransmission() {
+      this.fire.volume = 0.2;
       this.fire.play();
       this.startSatellite.speaker.pulse();
 
@@ -224,6 +226,9 @@ drawHearts() {
 let startPointX = 20;
 let startPointY = 20;
 
+this.giveUpButton = new GiveUpButton(this.game, startPointX, startPointY)
+startPointX = startPointX + 60;
+
 for (let i = 0;i<this.game.global.numResets;i++){
     let newHeart = new Heart(this.game, startPointX, startPointY, true)
     hearts.push(newHeart)
@@ -348,10 +353,6 @@ for (var bh of spaceDebris){
 
     resetGlobalVariables(){
       var currentLevel = this.game.global.currentLevel + 1;
-      if (this.game.global.level.lastLevel ==true ){
-        //you beat level 4!  have a bonus for endless mode
-        this.game.global.numResets = this.game.global.numResets+1;
-      }
       var levels = this.game.cache.getJSON('levels');
       var nextLevel = null;
       for(var level of levels){
@@ -370,6 +371,11 @@ for (var bh of spaceDebris){
 
 
   endGame() {
+
+    if (this.game.global.level.lastLevel ==true ){
+      //you beat level 4!  have a bonus for endless mode
+      this.game.global.numResets = this.game.global.numResets+1;
+    }
     this.levelMusic.stop();
     twinkleStars = [];
     this.resetGlobalVariables();
