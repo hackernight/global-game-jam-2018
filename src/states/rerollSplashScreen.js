@@ -23,6 +23,8 @@ class rerollSplashScreen extends Phaser.State {
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR, Phaser.Keyboard).onDown.add(this.startGame, this);
     this.input.onDown.add(this.startGame, this);
+    var sigh = this.game.add.audio('sigh');
+    setTimeout(function(sigh){sigh.play()}, 250, sigh);
   }
 
   update() {}

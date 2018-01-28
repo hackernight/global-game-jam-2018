@@ -98,7 +98,7 @@ class Game extends Phaser.State {
 
 
         this.game.allowedToFire = true;
-        this.game.time.events.loop(Phaser.Timer.SECOND, this.loadGun, this);
+        this.loadGun()
       }
 
 
@@ -112,12 +112,13 @@ class Game extends Phaser.State {
   fireTransmission() {
     if (this.game.allowedToFire == true){
       this.game.allowedToFire = false;
+      this.game.time.events.add(Phaser.Timer.SECOND, this.loadGun, this);
       this.startSatellite.speaker.tint = 0xf45c42
       this.fire.volume = 0.2;
       this.fire.play();
       this.startSatellite.speaker.pulse();
 
-        heartEmitter.start(true, this.startSatellite.body.y, null, 5)
+        heartEmitter.start(true, this.startSatellite.body.y, null, 1)
 
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
 
@@ -225,8 +226,28 @@ makeDebris(){
       spaceDebris.push(newCrate);
   }
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
+  var rockimage = 'space-rock';
+  if (this.game.global.level.chadNebula > 0 && this.game.rnd.integerInRange(0, 10) ==1){
+    rockimage = 'chad-nebula';
+    const text = this.add.text(this.game.width/4, 100, "Is that Chad Nebula?", {
+      font: '24px BEON', fill: '#54ed36', align: 'center'
+    });
+    text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
+    text.anchor.set(0.5);
+
+    this.game.time.events.add(4000, function() {
+          //header.bg.remove()
+          this.game.add.tween(text).to({y: 0}, 4000, Phaser.Easing.Linear.None, true);
+          this.game.add.tween(text).to({alpha: 0}, 4000, Phaser.Easing.Linear.None, true);
+        }, this);
+    this.game.time.events.add(8000, function() {
+      text.destroy()
+    })
+
+  }
+
   for (let i = 0;i<numDebris;i++){
-      let newRock = new Rock(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height))
+      let newRock = new Rock(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height),rockimage)
       newRock.body.damping= 0;
       newRock.body.mass= 0.1;
       newRock.body.setCollisionGroup(this.rockCollisionGroup);

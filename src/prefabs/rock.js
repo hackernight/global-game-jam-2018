@@ -2,8 +2,8 @@
 
 class Rock extends Phaser.Sprite {
 
-  constructor(game, x, y) {
-    super(game, x, y, 'space-rock')
+  constructor(game, x, y, image) {
+    super(game, x, y, image)
 
     
     game.physics.enable(this, Phaser.Physics.P2JS);
