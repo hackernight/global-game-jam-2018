@@ -8,7 +8,7 @@ class Transmission extends Phaser.Sprite {
     this.body.isDeleted = false;
     this.body.setCircle(25);
     this.body.collideWorldBounds = false;
-    this.body.myMass = 1000;
+    this.body.myMass = 100;
 
   }
 

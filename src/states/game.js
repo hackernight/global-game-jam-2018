@@ -7,6 +7,7 @@ import Rock from '../prefabs/rock'
 import BlackHole from '../prefabs/blackHole'
 import transmission from '../prefabs/transmission';
 import HeartEmitter from '../prefabs/heartEmitter'
+import Heart from '../prefabs/heart'
 
 
 var twinkleStars = [];
@@ -14,6 +15,8 @@ var transmissions = [];
 var deadTransmissions = [];
 var spaceDebris = [];
 var heartEmitter;
+var recipientHeartEmitter;
+var hearts =[];
 
 class Game extends Phaser.State {
 
@@ -45,11 +48,12 @@ class Game extends Phaser.State {
     //stuff for the background
     this.makeStars()
     this.makeDebris()
+    this.drawHearts()
 
     this.displayLevelName();
 
-    if (this.game.global.numResets> 0){
-      const text = this.add.text(100, 50, this.game.global.numResets + " broken hearts", {
+    if (this.game.global.numResets== 0){
+      const text = this.add.text(250, 50, "Your heart can't take more disappointment", {
         font: '24px Arial', fill: '#ffffff', align: 'center'
       });
       text.anchor.set(0.5);
@@ -65,7 +69,10 @@ class Game extends Phaser.State {
     this.targetSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
-        heartEmitter = new HeartEmitter(this.game, this.startSatellite.body.x, this.startSatellite.body.y)
+    heartEmitter = new HeartEmitter(this.game, this.startSatellite.body.x, this.startSatellite.body.y)
+    recipientHeartEmitter = new HeartEmitter(this.game, 0, 0)
+    this.targetSatellite.addChild(recipientHeartEmitter);
+
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
     this.game.input.keyboard.addKey(Phaser.Keyboard.X, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
     this.input.onDown.add(this.fireTransmission, this);
@@ -103,8 +110,40 @@ class Game extends Phaser.State {
     hitSatellite(body1, body2) {
       //  body1 is the transmission
       body1.isDeleted = true;
+      recipientHeartEmitter.start(true, 6000, null, 25)
+      this.targetSatellite.isTargetSatellite = false; //stop moving
+
       //  body2 is the thing it bumped in to
-      this.endGame();
+
+          var timer = this.game.time.create(false)
+          timer.add(Phaser.Timer.SECOND * 2, () => {
+            this.endGame();
+          })
+
+          /*timer.add(Phaser.Timer.SECOND, () => {
+            let winMessage
+            let splashImage
+
+            this.successSound = this.game.add.audio('success')
+
+            if (this.game.ba.win === false) {
+              winMessage = "Nooo... my candy! q.q"
+              splashImage = new LoseAnimation(this.game)
+              this.message = new HeaderText(this.game, winMessage, 75)
+            } else {
+              winMessage = "My candy is safe!"
+              splashImage = new WinSplash(this.game)
+              this.message = new HeaderText(this.game, winMessage, this.game.height - 100)
+              this.game.ba.win = true
+              this.successSound.play()
+            }
+            this.gordie.destroy()
+            this.assetsToKill.push(splashImage)
+          })*/
+
+          timer.start()
+
+
     }
 
     hitCrate(body1,body2){
@@ -171,7 +210,7 @@ makeDebris(){
   numDebris = 1 //this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
   for (let i = 0;i<numDebris;i++){
       let newBH = new BlackHole(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
-      
+
       newBH.angle = this.game.rnd.integerInRange(-180, 180)
       newBH.body.damping= 0;
       newBH.body.setCollisionGroup(this.blackHoleCollisionGroup);
@@ -179,6 +218,17 @@ makeDebris(){
       spaceDebris.push(newBH)
   }
 
+}
+drawHearts() {
+
+let startPointX = 20;
+let startPointY = 20;
+
+for (let i = 0;i<this.game.global.numResets;i++){
+    let newHeart = new Heart(this.game, startPointX, startPointY, true)
+    hearts.push(newHeart)
+    startPointX = startPointX + 20;
+}
 }
 
 
@@ -226,12 +276,12 @@ for (var bh of spaceDebris){
         var distance = this.math.distance(gtx.x,gtx.y,bh.x,bh.y);
         var gravAngle = Math.atan2(bh.body.y - gtx.body.y, bh.body.x - gtx.body.x);
         if(distance > 0){
-          gtx.body.force.x = gtx.body.force.x + Math.cos(gravAngle) * this.baseGravitySpeed * gtx.body.myMass * bh.body.myMass / (distance * distance);    // accelerateToObject 
+          gtx.body.force.x = gtx.body.force.x + Math.cos(gravAngle) * this.baseGravitySpeed * gtx.body.myMass * bh.body.myMass / (distance * distance);    // accelerateToObject
           gtx.body.force.y = gtx.body.force.y + Math.sin(gravAngle) * this.baseGravitySpeed * gtx.body.myMass * bh.body.myMass / (distance * distance);
         }
       }
 
-    } 
+    }
   }
 }
 
@@ -281,15 +331,19 @@ for (var bh of spaceDebris){
     }
 
     rerollLevel(){
-      console.log("rerolling level");
-      this.game.global.currentLevel = this.game.global.currentLevel - 1;
-      this.game.global.numResets = this.game.global.numResets + 1;
+      let nextscreen = 'giveuponlove';
+      if (this.game.global.numResets > 0){
+        this.game.global.currentLevel = this.game.global.currentLevel - 1;
+        this.game.global.numResets = this.game.global.numResets - 1;
+        nextscreen = 'rerollSplashScreen';
+      }
 
       this.levelMusic.stop();
       twinkleStars = [];
       this.resetGlobalVariables();
       transmissions = [];
-      this.game.state.start('giveuponlove');
+      this.game.state.start(nextscreen);
+
     }
 
     resetGlobalVariables(){
