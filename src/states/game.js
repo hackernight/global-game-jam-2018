@@ -44,6 +44,7 @@ class Game extends Phaser.State {
     this.thud = this.game.add.audio('thud');
     this.bounce = this.game.add.audio('bounce');
 	this.recieved = this.game.add.audio('recieved');
+  this.recieved.volume = 0.2;
     this.fire = this.game.add.audio('fire');
     this.victory = this.game.add.audio('victory');
     this.reset = this.game.add.audio('reset');
