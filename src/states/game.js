@@ -43,6 +43,7 @@ class Game extends Phaser.State {
     this.baseGravitySpeed = 10;
     this.thud = this.game.add.audio('thud');
     this.bounce = this.game.add.audio('bounce');
+	this.recieved = this.game.add.audio('recieved');
     this.fire = this.game.add.audio('fire');
     this.victory = this.game.add.audio('victory');
     this.reset = this.game.add.audio('reset');
@@ -141,7 +142,7 @@ class Game extends Phaser.State {
       body1.isDeleted = true;
       recipientHeartEmitter.start(true, 6000, null, 25)
       this.targetSatellite.isTargetSatellite = false; //stop moving
-
+      this.recieved.play();
       //  body2 is the thing it bumped in to
 
           var timer = this.game.time.create(false)
