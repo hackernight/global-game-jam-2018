@@ -43,6 +43,7 @@ class Game extends Phaser.State {
     this.baseGravitySpeed = 10;
     this.thud = this.game.add.audio('thud');
     this.bounce = this.game.add.audio('bounce');
+	this.recieved = this.game.add.audio('recieved');
     this.fire = this.game.add.audio('fire');
     this.victory = this.game.add.audio('victory');
     this.reset = this.game.add.audio('reset');
@@ -141,7 +142,7 @@ class Game extends Phaser.State {
       body1.isDeleted = true;
       recipientHeartEmitter.start(true, 6000, null, 25)
       this.targetSatellite.isTargetSatellite = false; //stop moving
-
+      this.recieved.play();
       //  body2 is the thing it bumped in to
 
           var timer = this.game.time.create(false)
@@ -226,8 +227,28 @@ makeDebris(){
       spaceDebris.push(newCrate);
   }
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
+  var rockimage = 'space-rock';
+  if (this.game.global.level.chadNebula > 0 && this.game.rnd.integerInRange(0, 10) ==1){
+    rockimage = 'chad-nebula';
+    const text = this.add.text(this.game.width/4, 100, "Is that Chad Nebula?", {
+      font: '24px BEON', fill: '#54ed36', align: 'center'
+    });
+    text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
+    text.anchor.set(0.5);
+
+    this.game.time.events.add(4000, function() {
+          //header.bg.remove()
+          this.game.add.tween(text).to({y: 0}, 4000, Phaser.Easing.Linear.None, true);
+          this.game.add.tween(text).to({alpha: 0}, 4000, Phaser.Easing.Linear.None, true);
+        }, this);
+    this.game.time.events.add(8000, function() {
+      text.destroy()
+    })
+
+  }
+
   for (let i = 0;i<numDebris;i++){
-      let newRock = new Rock(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height))
+      let newRock = new Rock(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height),rockimage)
       newRock.body.damping= 0;
       newRock.body.mass= 0.1;
       newRock.body.setCollisionGroup(this.rockCollisionGroup);

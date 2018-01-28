@@ -2,10 +2,10 @@
 
 class Rock extends Phaser.Sprite {
 
-  constructor(game, x, y) {
-    super(game, x, y, 'space-rock')
+  constructor(game, x, y, image) {
+    super(game, x, y, image)
 
-
+    
     game.physics.enable(this, Phaser.Physics.P2JS);
     game.add.existing(this)
     this.body.isDeleted = false;
@@ -13,7 +13,7 @@ class Rock extends Phaser.Sprite {
     this.body.kinematic = true;
     this.type = "rock";
     this.body.myMass = 0;
-
+    this.alpha = 0.9
 
   }
 

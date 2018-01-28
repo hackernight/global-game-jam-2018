@@ -36,6 +36,7 @@ class Preloader extends Phaser.State {
     this.game.load.spritesheet('studio', 'assets/studio-logo-sheet.png', 128, 128);
     this.game.load.spritesheet('give-up-button', 'assets/giveupanim1.png', 52, 66, 4);
     this.game.load.spritesheet('radio-anim','assets/boopanim1-sheet.png', 32, 32, 2);
+    this.game.load.spritesheet('chad-nebula','assets/nebulabase2_sheet.png', 64, 64, 4);
 
     //sounds
     this.game.load.audio('level1', ['assets/muzac/bass.wav']);
@@ -45,11 +46,12 @@ class Preloader extends Phaser.State {
     this.game.load.audio('bleepBloops', ['assets/muzac/bleepBloops.wav']);
     this.game.load.audio('thud', ['assets/muzac/thud.wav']);
     this.game.load.audio('bounce', ['assets/muzac/bounce.wav']);
+	this.game.load.audio('recieved', ['assets/muzac/message_recieved.wav']);
     this.game.load.audio('fire', ['assets/muzac/send_signal.wav']);
     this.game.load.audio('victory', ['assets/muzac/victory.wav'])
-	  this.game.load.audio('horn', ['assets/muzac/Bike_Horn.wav'])
+	this.game.load.audio('horn', ['assets/muzac/Bike_Horn.wav'])
     this.game.load.audio('lonely', ['assets/muzac/lonely.wav']);
-	  this.game.load.audio('relationship', ['assets/muzac/ending.wav']);
+	this.game.load.audio('relationship', ['assets/muzac/ending.wav']);
     this.game.load.audio('reset', ['assets/muzac/button-depress.wav'])
     this.game.load.audio('sigh', ['assets/muzac/sigh.wav'])
 
