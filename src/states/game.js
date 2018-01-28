@@ -86,6 +86,7 @@ class Game extends Phaser.State {
   }
 
     fireTransmission() {
+      this.fire.volume = 0.2;
       this.fire.play();
       this.startSatellite.speaker.pulse();
 
