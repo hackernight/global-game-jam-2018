@@ -60,7 +60,7 @@
   "name": "Sending my love to the universe!",
   "minCrates": 2,
   "maxCrates": 9,
-  "minRocks": 6,
+  "minRocks": 12,
   "maxRocks": 22,
   "blackHoles": 1,
   "blackHoleScale": 2,

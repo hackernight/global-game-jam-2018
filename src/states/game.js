@@ -439,9 +439,8 @@ for (var bh of spaceDebris){
 
   endGame() {
 
-    if (this.game.global.level.lastLevel ==true ){
-      //you beat level 4!  have a bonus for endless mode
-      //clamp hearts to 3.
+    if (this.game.global.level.lastLevel ==true && this.game.global.endlessModeCount % 2 == 0 ){
+      //you beat level 4!  have a bonus for endless mode every other one
       this.game.global.numResets = Math.min(this.game.global.numResets+1, 3);
     }
     this.levelMusic.stop();
