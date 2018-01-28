@@ -41,7 +41,7 @@ class Boot extends Phaser.State {
         dev_mode: true,
         currentLevel: 1,
         level: levels[0],
-        win: true,
+        win: false,
         numResets: 0
     };
   }

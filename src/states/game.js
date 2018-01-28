@@ -307,8 +307,9 @@ for (var bh of spaceDebris){
         }
       }
       this.game.global = {
-        dev_mode: true,
-        currentLevel:currentLevel,
+        dev_mode: this.game.global.dev_mode,
+        win: this.game.global.win,
+        currentLevel: currentLevel,
         level: nextLevel,
         numResets: this.game.global.numResets
       }
