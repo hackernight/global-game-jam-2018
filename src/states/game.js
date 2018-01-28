@@ -229,6 +229,21 @@ makeDebris(){
   var rockimage = 'space-rock';
   if (this.game.global.level.chadNebula > 0 && this.game.rnd.integerInRange(0, 10) ==1){
     rockimage = 'chad-nebula';
+    const text = this.add.text(this.game.width/4, 100, "Is that Chad Nebula?", {
+      font: '24px BEON', fill: '#54ed36', align: 'center'
+    });
+    text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
+    text.anchor.set(0.5);
+
+    this.game.time.events.add(4000, function() {
+          //header.bg.remove()
+          this.game.add.tween(text).to({y: 0}, 4000, Phaser.Easing.Linear.None, true);
+          this.game.add.tween(text).to({alpha: 0}, 4000, Phaser.Easing.Linear.None, true);
+        }, this);
+    this.game.time.events.add(8000, function() {
+      text.destroy()
+    })
+
   }
 
   for (let i = 0;i<numDebris;i++){
