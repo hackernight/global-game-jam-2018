@@ -14,6 +14,7 @@ var transmissions = [];
 var deadTransmissions = [];
 var spaceDebris = [];
 var heartEmitter;
+var recipientHeartEmitter;
 
 class Game extends Phaser.State {
 
@@ -65,7 +66,10 @@ class Game extends Phaser.State {
     this.targetSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
-        heartEmitter = new HeartEmitter(this.game, this.startSatellite.body.x, this.startSatellite.body.y)
+    heartEmitter = new HeartEmitter(this.game, this.startSatellite.body.x, this.startSatellite.body.y)
+    recipientHeartEmitter = new HeartEmitter(this.game, 0, 0)
+    this.targetSatellite.addChild(recipientHeartEmitter);
+
     this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
     this.game.input.keyboard.addKey(Phaser.Keyboard.X, Phaser.Keyboard).onDown.add(this.fireTransmission, this);
     this.input.onDown.add(this.fireTransmission, this);
@@ -103,6 +107,7 @@ class Game extends Phaser.State {
     hitSatellite(body1, body2) {
       //  body1 is the transmission
       body1.isDeleted = true;
+      recipientHeartEmitter.start(true, this.startSatellite.body.y, null, 5)
       //  body2 is the thing it bumped in to
       this.endGame();
     }
@@ -171,7 +176,7 @@ makeDebris(){
   numDebris = 1 //this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
   for (let i = 0;i<numDebris;i++){
       let newBH = new BlackHole(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
-      
+
       newBH.angle = this.game.rnd.integerInRange(-180, 180)
       newBH.body.damping= 0;
       newBH.body.setCollisionGroup(this.blackHoleCollisionGroup);
@@ -226,12 +231,12 @@ for (var bh of spaceDebris){
         var distance = this.math.distance(gtx.x,gtx.y,bh.x,bh.y);
         var gravAngle = Math.atan2(bh.body.y - gtx.body.y, bh.body.x - gtx.body.x);
         if(distance > 0){
-          gtx.body.force.x = gtx.body.force.x + Math.cos(gravAngle) * this.baseGravitySpeed * gtx.body.myMass * bh.body.myMass / (distance * distance);    // accelerateToObject 
+          gtx.body.force.x = gtx.body.force.x + Math.cos(gravAngle) * this.baseGravitySpeed * gtx.body.myMass * bh.body.myMass / (distance * distance);    // accelerateToObject
           gtx.body.force.y = gtx.body.force.y + Math.sin(gravAngle) * this.baseGravitySpeed * gtx.body.myMass * bh.body.myMass / (distance * distance);
         }
       }
 
-    } 
+    }
   }
 }
 
