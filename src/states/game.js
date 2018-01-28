@@ -96,7 +96,8 @@ class Game extends Phaser.State {
     this.levelMusic = this.game.add.audio(this.game.global.level.levelMusic)
     this.levelMusic.loopFull(0.6)
 
-    this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT, Phaser.Keyboard).onDown.add(this.endGame, this);
+//C is for "cheat"
+    this.game.input.keyboard.addKey(Phaser.Keyboard.C, Phaser.Keyboard).onDown.add(this.endGame, this);
 
 
         this.game.allowedToFire = true;
