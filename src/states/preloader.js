@@ -10,6 +10,11 @@ class Preloader extends Phaser.State {
     // setup loading bar
     this.asset = this.add.sprite(this.game.width * 0.5 - 110, this.game.height * 0.5 - 10, 'preloader');
     this.load.setPreloadSprite(this.asset);
+    //HACK BAD HACK TO GET WEB FONTS LOADING
+    const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5 + 40 , "Loading...", {
+      font: '24px VT323', fill: '#ffffff', align: 'center'
+    });
+    text.anchor.set(0.5);
 
     //images
     this.game.load.image('start-satellite', 'assets/satbase1.png')
@@ -45,10 +50,6 @@ class Preloader extends Phaser.State {
 	  this.game.load.audio('relationship', ['assets/muzac/ending.wav']);
     this.game.load.audio('reset', ['assets/muzac/button-depress.wav'])
 
-
-    // setup loading and its events
-    // this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
-    // this.loadResources();
   }
 
   update() {
