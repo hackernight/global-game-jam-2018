@@ -28,6 +28,7 @@ class Preloader extends Phaser.State {
     this.game.load.spritesheet('black-hole', 'assets/blackhole1_sheet.png', 48, 48, 6)
     this.game.load.spritesheet('victory', 'assets/victorysplashfull1_sheet.png', 1024, 768, 6)
     this.game.load.spritesheet('studio', 'assets/studio-logo-sheet.png', 128, 128);
+    this.game.load.spritesheet('give-up-button', 'assets/giveupanim1.png', 52, 66, 4 );
 
     //sounds
     this.game.load.audio('level1', ['assets/muzac/bass.wav']);
