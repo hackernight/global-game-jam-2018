@@ -208,7 +208,6 @@ makeDebris(){
   }
 
   numDebris = this.game.global.level.blackHoles;
-  console.log("blackhole count " + numDebris + ", " + this.game.global.level);
   for (let i = 0;i<numDebris;i++){
       let newBH = new BlackHole(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height))
 
