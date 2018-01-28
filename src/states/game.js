@@ -52,7 +52,7 @@ class Game extends Phaser.State {
 
 
 
-    this.startSatellite = new Satellite(this.game, this.game.width/10, this.game.height-this.game.height/10, false);
+    this.startSatellite = new Satellite(this.game, this.game.width/10, this.game.height/2, false);
     this.startSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
 
     let targetX = this.game.width-(this.game.width/10)
