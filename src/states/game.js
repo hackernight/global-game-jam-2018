@@ -98,7 +98,8 @@ class Game extends Phaser.State {
 
 
         this.game.allowedToFire = true;
-        this.game.time.events.loop(Phaser.Timer.SECOND, this.loadGun, this);
+        this.loadGun()
+        // this.game.time.events.loop(Phaser.Timer.SECOND, this.loadGun, this);
       }
 
 
@@ -112,12 +113,13 @@ class Game extends Phaser.State {
   fireTransmission() {
     if (this.game.allowedToFire == true){
       this.game.allowedToFire = false;
+      this.game.time.events.add(Phaser.Timer.SECOND, this.loadGun, this);
       this.startSatellite.speaker.tint = 0xf45c42
       this.fire.volume = 0.2;
       this.fire.play();
       this.startSatellite.speaker.pulse();
 
-        heartEmitter.start(true, this.startSatellite.body.y, null, 5)
+        heartEmitter.start(true, this.startSatellite.body.y, null, 1)
 
         let transmission = new Transmission(this.game, this.startSatellite.x, this.startSatellite.y)
 
@@ -366,7 +368,10 @@ for (var bh of spaceDebris){
       this.reset.play();
       let nextscreen = 'giveuponlove';
       if (this.game.global.numResets > 0){
-        this.game.global.currentLevel = this.game.global.currentLevel - 1;
+        if (this.game.global.win == false){
+          //don't advance levels if we're in endless mode
+          this.game.global.currentLevel = this.game.global.currentLevel - 1;
+        }
         this.game.global.numResets = this.game.global.numResets - 1;
         nextscreen = 'rerollSplashScreen';
       }
@@ -380,7 +385,12 @@ for (var bh of spaceDebris){
     }
 
     resetGlobalVariables(){
-      var currentLevel = this.game.global.currentLevel + 1;
+      var currentLevel = this.game.global.currentLevel;
+      if (this.game.global.win == false){
+        //don't advance levels if we're in endless mode
+        currentLevel = currentLevel + 1;
+      }
+
       var levels = this.game.cache.getJSON('levels');
       var nextLevel = null;
       for(var level of levels){

@@ -32,7 +32,7 @@ class LevelTransition extends Phaser.State {
 
   restartGame() {
     this.resetGlobalVariables();
-    if(this.game.global.level === null){
+    if(this.game.global.level.lastLevel==true){
       this.game.state.start('gameover_win')
       return;
     }

@@ -71,9 +71,9 @@ class GameOverWin extends Phaser.State {
 
   replay(){
     this.game.global.win = true;
-	this.relationship.stop();
-    this.game.global.currentLevel = 4;
-    this.game.global.level = this.game.cache.getJSON('levels')[3];
+	  this.relationship.stop();
+    this.game.global.currentLevel = 5;
+    this.game.global.level = this.game.cache.getJSON('levels')[4];
     this.game.state.start('game')
   }
 
