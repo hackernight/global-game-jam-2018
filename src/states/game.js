@@ -58,7 +58,7 @@ class Game extends Phaser.State {
 
     if (this.game.global.numResets== 0){
       const text = this.add.text(200, 50, "Can't Take Anymore", {
-        font: '24px BEON', fill: '#ff5526', align: 'center'
+        font: '24px VT323', fill: '#ff5526', align: 'center'
       });
       text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
       text.anchor.set(0.5);
@@ -230,10 +230,10 @@ makeDebris(){
   }
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
   var rockimage = 'space-rock';
-  if (this.game.global.level.chadNebula > 0 && this.game.rnd.integerInRange(1,5) ==1){
+  if (this.game.global.level.chadNebula > 0 && this.game.rnd.integerInRange(1,10) ==1){
     rockimage = 'the-chad-nebula';
     const text = this.add.text(this.game.width/4, 100, "Is that Chad Nebula?", {
-      font: '24px BEON', fill: '#54ed36', align: 'center'
+      font: '24px VT323', fill: '#54ed36', align: 'center'
     });
     text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
     text.anchor.set(0.5);
