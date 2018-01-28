@@ -48,11 +48,11 @@ class Game extends Phaser.State {
 
 
 
-    this.startSatellite = new Satellite(this.game, this.game.width/10, 500, false);
+    this.startSatellite = new Satellite(this.game, this.game.width/10, this.game.height-this.game.height/10, false);
     this.startSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
 
     let targetX = this.game.width-(this.game.width/10)
-    this.targetSatellite = new Satellite(this.game, targetX, 100, true);
+    this.targetSatellite = new Satellite(this.game, targetX, this.game.height/10, true);
     this.targetSatellite.body.setCollisionGroup(this.satelliteCollisionGroup);
     this.targetSatellite.body.collides(this.transmissionCollisionGroup);
 
@@ -130,9 +130,14 @@ for (let i = 0;i<numStars*2;i++){
 }
 
 makeDebris(){
+  let percentile = this.game.width/10;
+  let minXCoord = percentile * 3;
+  let maxXCoord = this.game.width - (percentile*3)
+
+
   let numDebris = this.game.rnd.integerInRange(this.game.global.level.minCrates, this.game.global.level.maxCrates)
   for (let i = 0;i<numDebris;i++){
-      let newCrate = new Crate(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
+      let newCrate = new Crate(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height))
       newCrate.angle = this.game.rnd.integerInRange(-180, 180)
       newCrate.body.damping= 0;
       newCrate.body.mass= 0.1;
@@ -142,7 +147,7 @@ makeDebris(){
   }
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
   for (let i = 0;i<numDebris;i++){
-      let newRock = new Rock(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
+      let newRock = new Rock(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height))
       newRock.angle = this.game.rnd.integerInRange(-180, 180)
       newRock.body.damping= 0;
       newRock.body.mass= 0.1;
