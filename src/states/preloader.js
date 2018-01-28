@@ -19,10 +19,15 @@ class Preloader extends Phaser.State {
     this.game.load.image('splash-header', 'assets/splashheader1_scaled.png')
     this.game.load.image('space-rock', 'assets/spacerock48x48.png')
     this.game.load.image('heartParticle', 'assets/lifeheartbase1.png')
+    this.game.load.image('give-up', 'assets/giveupsplash1.png')
+    this.game.load.image('stl', 'assets/MadeInSTL.png');
 
     //sprites
     this.game.load.spritesheet('twinkle-star', 'assets/twinkleanim1-sheet.png', 39, 39, 2)
     this.game.load.spritesheet('speaker-pulse', 'assets/speakeranim1.png', 16, 26, 4)
+    this.game.load.spritesheet('black-hole', 'assets/blackhole1_sheet.png', 48, 48, 6)
+    this.game.load.spritesheet('victory', 'assets/victorysplashfull1_sheet.png', 1024, 768, 6)
+    this.game.load.spritesheet('studio', 'assets/studio-logo-sheet.png', 128, 128);
 
     //sounds
     this.game.load.audio('level1', ['assets/muzac/bass.wav']);
@@ -33,6 +38,8 @@ class Preloader extends Phaser.State {
     this.game.load.audio('thud', ['assets/muzac/thud.wav']);
     this.game.load.audio('bounce', ['assets/muzac/bounce.wav']);
     this.game.load.audio('fire', ['assets/muzac/send_signal.wav']);
+    this.game.load.audio('victory', ['assets/muzac/victory.wav'])
+	  this.game.load.audio('horn', ['assets/muzac/Bike_Horn.wav'])
 
 
     // setup loading and its events
@@ -42,7 +49,8 @@ class Preloader extends Phaser.State {
 
   update() {
     // if (this.ready) {
-    this.game.state.start('menu');
+	console.log("update statement")
+    this.game.state.start('splashScreen');
     // }
   }
 

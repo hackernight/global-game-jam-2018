@@ -1,21 +1,23 @@
 [
   {
     "id": 1,
-    "name": "Lonely Satellite",
+    "name": "I'm a Lonely Satellite",
     "minCrates": 0,
     "maxCrates": 1,
-    "minRocks": 3,
-    "maxRocks": 5,
+    "minRocks": 7,
+    "maxRocks": 9,
+    "blackHoles": 0,
     "levelMusic":"level1",
     "lastLevel":false
   },
   {
     "id": 2,
-    "name": "Is anybody out there?",
+    "name": "Is somebody out there?",
     "minCrates": 1,
     "maxCrates": 3,
-    "minRocks": 4,
-    "maxRocks": 6,
+    "minRocks": 10,
+    "maxRocks": 14,
+    "blackHoles": 0,
     "levelMusic":"level2",
     "lastLevel":false
   },
@@ -24,8 +26,9 @@
     "name": "Someone's listening!",
     "minCrates": 2,
     "maxCrates": 5,
-    "minRocks": 6,
-    "maxRocks": 8,
+    "minRocks": 14,
+    "maxRocks": 18,
+    "blackHoles": 1,
     "levelMusic":"level3",
     "lastLevel":false
   },
@@ -34,8 +37,9 @@
     "name": "Can two satellites find love?",
     "minCrates": 3,
     "maxCrates": 7,
-    "minRocks": 8,
-    "maxRocks": 12,
+    "minRocks": 18,
+    "maxRocks": 22,
+    "blackHoles": 1,
     "levelMusic":"level4",
     "lastLevel":true
   }
