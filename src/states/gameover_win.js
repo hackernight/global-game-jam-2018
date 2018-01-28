@@ -12,7 +12,9 @@ class GameOverWin extends Phaser.State {
       this.replay()
       return
     }
-
+	this.relationship = this.game.add.audio('relationship');
+    this.relationship.loopFull(0.6);
+	
     var victory = new Victory(this.game, 0, 0)
 
 
@@ -59,12 +61,14 @@ class GameOverWin extends Phaser.State {
   update() {}
 
   restartGame() {
+	this.relationship.stop();
     this.resetGlobalVariables();
     this.game.state.start('menu');
   }
 
   replay(){
     this.game.global.win = true;
+	this.relationship.stop();
     this.game.global.currentLevel = 4;
     this.game.global.level = this.game.cache.getJSON('levels')[3];
     this.game.state.start('game')

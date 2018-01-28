@@ -45,6 +45,7 @@ class Game extends Phaser.State {
     this.bounce = this.game.add.audio('bounce');
     this.fire = this.game.add.audio('fire');
     this.victory = this.game.add.audio('victory');
+    this.reset = this.game.add.audio('reset');
 
     //stuff for the background
     this.makeStars()
@@ -58,6 +59,16 @@ class Game extends Phaser.State {
         font: '24px Arial', fill: '#ffffff', align: 'center'
       });
       text.anchor.set(0.5);
+
+      this.game.time.events.add(2000, function() {
+            //header.bg.remove()
+            this.game.add.tween(text).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
+            this.game.add.tween(text).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
+          }, this);
+      this.game.time.events.add(4000, function() {
+        text.destroy()
+      })
+
     }
 
 
@@ -336,6 +347,7 @@ for (var bh of spaceDebris){
     }
 
     rerollLevel(){
+      this.reset.play();
       let nextscreen = 'giveuponlove';
       if (this.game.global.numResets > 0){
         this.game.global.currentLevel = this.game.global.currentLevel - 1;
@@ -374,7 +386,8 @@ for (var bh of spaceDebris){
 
     if (this.game.global.level.lastLevel ==true ){
       //you beat level 4!  have a bonus for endless mode
-      this.game.global.numResets = this.game.global.numResets+1;
+      //clamp hearts to 3.
+      this.game.global.numResets = Math.min(this.game.global.numResets+1, 3);
     }
     this.levelMusic.stop();
     twinkleStars = [];
