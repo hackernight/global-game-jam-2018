@@ -33,6 +33,10 @@ class Game extends Phaser.State {
     this.rockCollisionGroup = this.physics.p2.createCollisionGroup();
     this.physics.p2.updateBoundsCollisionGroup();
 
+    this.thud = this.game.add.audio('thud');
+    this.bounce = this.game.add.audio('bounce');
+    this.fire = this.game.add.audio('fire');
+
     //stuff for the background
     this.makeStars()
     this.makeDebris()
@@ -70,6 +74,7 @@ class Game extends Phaser.State {
   }
 
     fireTransmission() {
+      this.fire.play();
       this.startSatellite.speaker.pulse();
 
         heartEmitter.start(true, this.startSatellite.body.y, null, 5)
@@ -99,11 +104,13 @@ class Game extends Phaser.State {
 
     hitCrate(body1,body2){
       //play a sound?
+      this.thud.play();
       body1.isDeleted = true;
     }
 
     hitRock(body1,body2){
       //play a sound?
+      this.bounce.play();
     }
 
 makeStars() {
