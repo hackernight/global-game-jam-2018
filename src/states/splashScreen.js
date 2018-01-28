@@ -1,51 +1,62 @@
-import CenteredSprite from '../prefabs/centeredSprite';
+const CenteredSprite = require('../prefabs/centeredSprite');
 
 class SplashScreen extends Phaser.State {
 
-    create() {
-        const splash = new CenteredSprite(this.game, 'stl');
-        splash.alpha = 0;
-        const neonate = this.game.add.neonate(splash).to(
-            {alpha: 1},
-            1500,
-            Phaser.Easing.Linear.In,
-            true
-        ).yoyo(true, 1000);
+   create() {
+       this.input.onDown.add(this.skipIntro, this);
 
-        neonate.onComplete.add(() => {
-            const logo = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'studio');
-            logo.anchor.set(0.5);
-            logo.scale.set(2);
+       var self = this;
+       this.game.input.keyboard.onPressCallback = function(e){
+         self.skipIntro();}
 
-            logo.animations.add('logo');
-            const animation = logo.animations.play('logo', 15, false);
+       const splash = new CenteredSprite(this.game, 'logo-stl');
+       splash.alpha = 0;
+       const tween = this.game.add.tween(splash).to(
+           {alpha: 1},
+           1500,
+           Phaser.Easing.Linear.In,
+           true
+       ).yoyo(true, 1000);
 
-            animation.onComplete.add(() => {
-                const style = {
-                    font: '42px Arial',
-                    fill: '#ffffff',
-                    stroke: 0x333333,
-                    strokeThickness: 5,
-                    align: 'center'
-                };
-                const text = this.game.add.text(this.game.world.centerX, 100, 'Jokes 2 Far', style);
-                text.alpha = 0;
-                text.anchor.set(0.5);
-                const txtTween = this.game.add.neonate(text).to(
-                    {alpha:1},
-                    2000,
-                    Phaser.Easing.Linear.In,
-                    true
-                );
+       tween.onComplete.add(() => {
+           const logo = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo-studio');
+           logo.anchor.set(0.5);
+           logo.scale.set(2);
 
-                txtTween.onComplete.add(() => {
-                    this.game.state.start('menu');
-                });
+           logo.animations.add('logo');
+           const animation = logo.animations.play('logo', 15, false);
 
-            });
-        });
-    }
+           animation.onComplete.add(() => {
+               const style = {
+                   font: '42px Arial',
+                   fill: '#ffffff',
+                   stroke: 0x333333,
+                   strokeThickness: 5,
+                   align: 'center'
+               };
+               const text = this.game.add.text(this.game.world.centerX, 100, 'Jokes Too Far Games', style);
+               text.alpha = 0;
+               text.anchor.set(0.5);
+               const txtTween = this.game.add.tween(text).to(
+                   {alpha:1},
+                   2000,
+                   Phaser.Easing.Linear.In,
+                   true
+               );
+
+               txtTween.onComplete.add(() => {
+                   this.game.state.start('menu');
+               });
+
+           });
+       });
+   }
+
+   skipIntro() {
+     this.game.input.keyboard.onPressCallback = null;
+       this.game.state.start('menu');
+   }
 
 }
 
-export default SplashScreen;
+module.exports = SplashScreen;
