@@ -189,33 +189,34 @@ makeDebris(){
   let numDebris = this.game.rnd.integerInRange(this.game.global.level.minCrates, this.game.global.level.maxCrates)
   for (let i = 0;i<numDebris;i++){
       let newCrate = new Crate(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height))
-      newCrate.angle = this.game.rnd.integerInRange(-180, 180)
       newCrate.body.damping= 0;
       newCrate.body.mass= 0.1;
       newCrate.body.setCollisionGroup(this.crateCollisionGroup);
       newCrate.body.collides(this.transmissionCollisionGroup);
-      spaceDebris.push(newCrate)
+      newCrate.body.angle = this.game.rnd.integerInRange(-90, 90);
+      spaceDebris.push(newCrate);
   }
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
   for (let i = 0;i<numDebris;i++){
       let newRock = new Rock(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height))
-      newRock.angle = this.game.rnd.integerInRange(-180, 180)
       newRock.body.damping= 0;
       newRock.body.mass= 0.1;
       newRock.body.setCollisionGroup(this.rockCollisionGroup);
       newRock.body.collides(this.transmissionCollisionGroup);
-      spaceDebris.push(newRock)
+      newRock.body.angle = this.game.rnd.integerInRange(-90, 90);
+      spaceDebris.push(newRock);
   }
 
-  numDebris = 1 //this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
+  numDebris = this.game.global.level.blackHoles;
+  console.log("blackhole count " + numDebris + ", " + this.game.global.level);
   for (let i = 0;i<numDebris;i++){
-      let newBH = new BlackHole(this.game, this.game.rnd.integerInRange(0, 1600), this.game.rnd.integerInRange(0, 768))
+      let newBH = new BlackHole(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height))
 
       newBH.angle = this.game.rnd.integerInRange(-180, 180)
       newBH.body.damping= 0;
       newBH.body.setCollisionGroup(this.blackHoleCollisionGroup);
       newBH.body.collides(this.transmissionCollisionGroup);
-      spaceDebris.push(newBH)
+      spaceDebris.push(newBH);
   }
 
 }
