@@ -40,6 +40,7 @@ class Preloader extends Phaser.State {
     this.game.load.audio('fire', ['assets/muzac/send_signal.wav']);
     this.game.load.audio('victory', ['assets/muzac/victory.wav'])
 	  this.game.load.audio('horn', ['assets/muzac/Bike_Horn.wav'])
+    this.game.load.audio('lonely', ['assets/muzac/lonely.wav']);
 
 
     // setup loading and its events
@@ -48,10 +49,7 @@ class Preloader extends Phaser.State {
   }
 
   update() {
-    // if (this.ready) {
-	console.log("update statement")
     this.game.state.start('splashScreen');
-    // }
   }
 
   loadResources() {

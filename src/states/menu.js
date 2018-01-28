@@ -36,7 +36,20 @@ class Menu extends Phaser.State {
 
   startGame () {
     this.levelMusic.stop();
+    this.initGlobalVariables();
     this.game.state.start('game');
+  }
+
+  initGlobalVariables(){
+    var levels = this.game.cache.getJSON('levels')
+
+    this.game.global = {
+        dev_mode: true,
+        currentLevel: 1,
+        level: levels[0],
+        win: false,
+        numResets: 3
+    };
   }
 
 }

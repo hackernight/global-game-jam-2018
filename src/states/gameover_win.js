@@ -7,6 +7,7 @@ class GameOverWin extends Phaser.State {
   }
 
   create() {
+    //This allows for endless mode, it must go first.
     if(this.game.global.win === true) {
       this.replay()
       return

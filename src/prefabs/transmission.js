@@ -19,7 +19,6 @@ class Transmission extends Phaser.Sprite {
   }
 
   iAmOuttaHere(){
-    console.log("i'm outta here")
     this.body.isDeleted = true;
   }
 
