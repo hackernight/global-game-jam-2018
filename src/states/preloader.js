@@ -19,6 +19,7 @@ class Preloader extends Phaser.State {
     this.game.load.image('splash-header', 'assets/splashheader1_scaled.png')
     this.game.load.image('space-rock', 'assets/spacerock48x48.png')
     this.game.load.image('heartParticle', 'assets/lifeheartbase1.png')
+    this.game.load.image('give-up', 'assets/giveupsplash1.png')
 
     //sprites
     this.game.load.spritesheet('twinkle-star', 'assets/twinkleanim1-sheet.png', 39, 39, 2)
@@ -30,6 +31,10 @@ class Preloader extends Phaser.State {
     this.game.load.audio('level3', ['assets/muzac/bass_drums_melody.wav']);
     this.game.load.audio('level4', ['assets/muzac/bass_drums_melody_harmony.wav']);
     this.game.load.audio('bleepBloops', ['assets/muzac/bleepBloops.wav']);
+    this.game.load.audio('thud', ['assets/muzac/thud.wav']);
+    this.game.load.audio('bounce', ['assets/muzac/bounce.wav']);
+    this.game.load.audio('fire', ['assets/muzac/send_signal.wav']);
+    this.game.load.audio('victory', ['assets/muzac/victory.wav'])
 
 
     // setup loading and its events
