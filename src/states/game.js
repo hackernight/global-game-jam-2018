@@ -331,16 +331,19 @@ for (var bh of spaceDebris){
     }
 
     rerollLevel(){
+      let nextscreen = 'giveuponlove';
       if (this.game.global.numResets > 0){
         this.game.global.currentLevel = this.game.global.currentLevel - 1;
         this.game.global.numResets = this.game.global.numResets - 1;
-
-        this.levelMusic.stop();
-        twinkleStars = [];
-        this.resetGlobalVariables();
-        transmissions = [];
-        this.game.state.start('giveuponlove');
+        nextscreen = 'rerollSplashScreen';
       }
+
+      this.levelMusic.stop();
+      twinkleStars = [];
+      this.resetGlobalVariables();
+      transmissions = [];
+      this.game.state.start(nextscreen);
+
     }
 
     resetGlobalVariables(){
