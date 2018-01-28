@@ -364,7 +364,10 @@ for (var bh of spaceDebris){
       this.reset.play();
       let nextscreen = 'giveuponlove';
       if (this.game.global.numResets > 0){
-        this.game.global.currentLevel = this.game.global.currentLevel - 1;
+        if (this.game.global.win == false){
+          //don't advance levels if we're in endless mode
+          this.game.global.currentLevel = this.game.global.currentLevel - 1;
+        }
         this.game.global.numResets = this.game.global.numResets - 1;
         nextscreen = 'rerollSplashScreen';
       }
@@ -378,7 +381,12 @@ for (var bh of spaceDebris){
     }
 
     resetGlobalVariables(){
-      var currentLevel = this.game.global.currentLevel + 1;
+      var currentLevel = this.game.global.currentLevel;
+      if (this.game.global.win == false){
+        //don't advance levels if we're in endless mode
+        currentLevel = currentLevel + 1;
+      }
+
       var levels = this.game.cache.getJSON('levels');
       var nextLevel = null;
       for(var level of levels){
