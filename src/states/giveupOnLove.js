@@ -7,7 +7,9 @@ class giveupOnLove extends Phaser.State {
   }
 
   create() {
-      let title = new TitleGraphic(this.game,'give-up')
+    this.lonely = this.game.add.audio('lonely');
+    this.lonely.loopFull(0.6);
+    let title = new TitleGraphic(this.game,'give-up')
 
     const text2 = this.add.text(this.game.width * 0.5, this.game.height * 0.75 + 20, 'Click to try again from the beginning...', {
       font: '18px Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 6 , align: 'center'
@@ -25,7 +27,8 @@ class giveupOnLove extends Phaser.State {
   update() {}
 
   startGame () {
-    this.game.state.start('boot');
+    this.lonely.stop()
+    this.game.state.start('menu');
   }
 
 }

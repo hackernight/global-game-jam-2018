@@ -8,6 +8,7 @@ import BlackHole from '../prefabs/blackHole'
 import transmission from '../prefabs/transmission';
 import HeartEmitter from '../prefabs/heartEmitter'
 import Heart from '../prefabs/heart'
+import GiveUpButton from '../prefabs/GiveUpButton'
 
 
 var twinkleStars = [];
@@ -44,6 +45,7 @@ class Game extends Phaser.State {
     this.bounce = this.game.add.audio('bounce');
     this.fire = this.game.add.audio('fire');
     this.victory = this.game.add.audio('victory');
+    this.reset = this.game.add.audio('reset');
 
     //stuff for the background
     this.makeStars()
@@ -53,10 +55,20 @@ class Game extends Phaser.State {
     this.displayLevelName();
 
     if (this.game.global.numResets== 0){
-      const text = this.add.text(250, 50, "Your heart can't take more disappointment", {
+      const text = this.add.text(300, 50, "Your heart can't take more disappointment", {
         font: '24px Arial', fill: '#ffffff', align: 'center'
       });
       text.anchor.set(0.5);
+
+      this.game.time.events.add(2000, function() {
+            //header.bg.remove()
+            this.game.add.tween(text).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
+            this.game.add.tween(text).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
+          }, this);
+      this.game.time.events.add(4000, function() {
+        text.destroy()
+      })
+
     }
 
 
@@ -83,9 +95,24 @@ class Game extends Phaser.State {
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT, Phaser.Keyboard).onDown.add(this.endGame, this);
 
-  }
 
-    fireTransmission() {
+        this.game.allowedToFire = true;
+        this.game.time.events.loop(Phaser.Timer.SECOND, this.loadGun, this);
+      }
+
+
+    loadGun() {
+          this.game.allowedToFire = true;
+          this.startSatellite.speaker.tint = 0xffffff
+
+      }
+
+
+  fireTransmission() {
+    if (this.game.allowedToFire == true){
+      this.game.allowedToFire = false;
+      this.startSatellite.speaker.tint = 0xf45c42
+      this.fire.volume = 0.2;
       this.fire.play();
       this.startSatellite.speaker.pulse();
 
@@ -106,7 +133,7 @@ class Game extends Phaser.State {
 
         transmissions.push(transmission);
     }
-
+}
     hitSatellite(body1, body2) {
       //  body1 is the transmission
       body1.isDeleted = true;
@@ -224,6 +251,9 @@ drawHearts() {
 let startPointX = 20;
 let startPointY = 20;
 
+this.giveUpButton = new GiveUpButton(this.game, startPointX, startPointY)
+startPointX = startPointX + 60;
+
 for (let i = 0;i<this.game.global.numResets;i++){
     let newHeart = new Heart(this.game, startPointX, startPointY, true)
     hearts.push(newHeart)
@@ -331,6 +361,7 @@ for (var bh of spaceDebris){
     }
 
     rerollLevel(){
+      this.reset.play();
       let nextscreen = 'giveuponlove';
       if (this.game.global.numResets > 0){
         this.game.global.currentLevel = this.game.global.currentLevel - 1;
@@ -348,10 +379,6 @@ for (var bh of spaceDebris){
 
     resetGlobalVariables(){
       var currentLevel = this.game.global.currentLevel + 1;
-      if (this.game.global.level.lastLevel ==true ){
-        //you beat level 4!  have a bonus for endless mode
-        this.game.global.numResets = this.game.global.numResets+1;
-      }
       var levels = this.game.cache.getJSON('levels');
       var nextLevel = null;
       for(var level of levels){
@@ -370,6 +397,12 @@ for (var bh of spaceDebris){
 
 
   endGame() {
+
+    if (this.game.global.level.lastLevel ==true ){
+      //you beat level 4!  have a bonus for endless mode
+      //clamp hearts to 3.
+      this.game.global.numResets = Math.min(this.game.global.numResets+1, 3);
+    }
     this.levelMusic.stop();
     twinkleStars = [];
     this.resetGlobalVariables();

@@ -24,28 +24,10 @@ class Boot extends Phaser.State {
       this.game.scale.forceOrientation(true);
       this.game.scale.pageAlignHorizontally = true;
       this.game.scale.setSize();
-
-
     }
-
-    this.initGlobalVariables();
 
     this.game.state.start('preloader');
   }
-
-  initGlobalVariables(){
-
-  var levels = this.game.cache.getJSON('levels')
-
-    this.game.global = {
-        dev_mode: true,
-        currentLevel: 1,
-        level: levels[0],
-        win: false,
-        numResets: 3
-    };
-  }
-
 }
 
 export default Boot;

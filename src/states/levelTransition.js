@@ -13,6 +13,7 @@ class LevelTransition extends Phaser.State {
     this.saveVarsToLocalStorage();
 
     setTimeout(function(game) {
+     game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR, Phaser.Keyboard).onDown.add(game.restartGame, game);
      game.input.onDown.add(game.restartGame, game);
    }, 2500, this)
 

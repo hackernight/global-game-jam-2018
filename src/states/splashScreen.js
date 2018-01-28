@@ -3,7 +3,6 @@ class SplashScreen extends Phaser.State {
 
    create() {
        this.input.onDown.add(this.skipIntro, this);
-		console.log("splashScreen")
        var self = this;
        this.game.input.keyboard.onPressCallback = function(e){
          self.skipIntro();}

@@ -1,7 +1,11 @@
 class Transmission extends Phaser.Sprite {
 
   constructor(game, x, y) {
-    super(game, x, y, 'radio-wave')
+    super(game, x, y, 'radio-anim')
+    
+    this.anchor.setTo(0.5, 0.5);
+    this.animations.add('radio-anim', [0,1], 2, true);
+    this.animations.play("radio-anim");
 
     game.physics.enable(this, Phaser.Physics.P2JS);
     game.add.existing(this)
@@ -19,7 +23,6 @@ class Transmission extends Phaser.Sprite {
   }
 
   iAmOuttaHere(){
-    console.log("i'm outta here")
     this.body.isDeleted = true;
   }
 
