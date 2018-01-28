@@ -9,8 +9,8 @@ class BlackHole extends Phaser.Sprite {
       this.animations.add('black-hole', [0,1,2,3,4,5], 6, true);
       this.animations.play("black-hole");
   
-        this.scale.x = 2.5
-        this.scale.y = 2.5
+        this.scale.x = this.game.global.level.blackHoleScale
+        this.scale.y = this.game.global.level.blackHoleScale
 
       game.physics.enable(this, Phaser.Physics.P2JS);
       game.add.existing(this)
@@ -18,7 +18,7 @@ class BlackHole extends Phaser.Sprite {
       this.body.setCircle(25);
       this.body.kinematic = true;
       this.type = "blackHole";
-      this.body.myMass = 1000;
+      this.body.myMass = this.game.global.level.blackHoleMass;
   
     }
   

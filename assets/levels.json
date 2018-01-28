@@ -7,6 +7,8 @@
     "minRocks": 7,
     "maxRocks": 9,
     "blackHoles": 0,
+    "blackHoleScale": 1,
+    "blackHoleMass": 1000,
     "levelMusic":"level1",
     "lastLevel":false
   },
@@ -18,6 +20,8 @@
     "minRocks": 10,
     "maxRocks": 14,
     "blackHoles": 0,
+    "blackHoleScale": 1,
+    "blackHoleMass": 1000,
     "levelMusic":"level2",
     "lastLevel":false
   },
@@ -29,6 +33,8 @@
     "minRocks": 14,
     "maxRocks": 18,
     "blackHoles": 1,
+    "blackHoleScale": 1,
+    "blackHoleMass": 1000,
     "levelMusic":"level3",
     "lastLevel":false
   },
@@ -40,6 +46,8 @@
     "minRocks": 18,
     "maxRocks": 22,
     "blackHoles": 1,
+    "blackHoleScale": 2.5,
+    "blackHoleMass": 4000,
     "levelMusic":"level4",
     "lastLevel":true
   }
