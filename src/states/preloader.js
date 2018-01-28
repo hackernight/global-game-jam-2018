@@ -19,6 +19,7 @@ class Preloader extends Phaser.State {
     this.game.load.image('splash-header', 'assets/splashheader1_scaled.png')
     this.game.load.image('space-rock', 'assets/spacerock48x48.png')
     this.game.load.image('heartParticle', 'assets/lifeheartbase1.png')
+    this.game.load.image('give-up', 'assets/giveupsplash1.png')
 
     //sprites
     this.game.load.spritesheet('twinkle-star', 'assets/twinkleanim1-sheet.png', 39, 39, 2)

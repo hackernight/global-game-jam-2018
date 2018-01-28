@@ -1,7 +1,7 @@
 class TitleGraphic extends Phaser.Sprite {
 
-  constructor(game) {
-    super(game, game.world.centerX, game.world.centerY, 'splash-header')
+  constructor(game,imageName) {
+    super(game, game.world.centerX, game.world.centerY, imageName)
     //this.animations.add('play', [0,1,2,3], 2, false);
     //this.animations.play('play');
     //this.width = 1024
