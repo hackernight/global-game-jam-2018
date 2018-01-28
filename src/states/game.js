@@ -226,8 +226,13 @@ makeDebris(){
       spaceDebris.push(newCrate);
   }
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
+  var rockimage = 'space-rock';
+  if (this.game.global.level.chadNebula > 0 && this.game.rnd.integerInRange(0, 10) ==1){
+    rockimage = 'chad-nebula';
+  }
+
   for (let i = 0;i<numDebris;i++){
-      let newRock = new Rock(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height))
+      let newRock = new Rock(this.game, this.game.rnd.integerInRange(minXCoord, maxXCoord), this.game.rnd.integerInRange(0, this.game.height),rockimage)
       newRock.body.damping= 0;
       newRock.body.mass= 0.1;
       newRock.body.setCollisionGroup(this.rockCollisionGroup);
