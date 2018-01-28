@@ -15,8 +15,9 @@ class rerollSplashScreen extends Phaser.State {
 
     for(var i=0; i < messages.length; i++) {
       var text = this.add.text(this.game.width * 0.5, this.game.height * 0.5 + (i * 44), messages[i], {
-        font: '42px Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 6 , align: 'center'
+        font: '42px VT323', fill: '#e36bff', stroke: '#000000', strokeThickness: 6 , align: 'center'
       });
+      text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
       text.anchor.set(0.5)
     }
 

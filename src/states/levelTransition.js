@@ -6,8 +6,9 @@ class LevelTransition extends Phaser.State {
 
   create() {
     const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Message Received!', {
-      font: '42px Arial', fill: '#ffffff', align: 'center'
+      font: '42px VT323', fill: '#ffc228', align: 'center'
     });
+    text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
     text.anchor.set(0.5);
 
     this.saveVarsToLocalStorage();

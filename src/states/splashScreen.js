@@ -26,7 +26,7 @@ class SplashScreen extends Phaser.State {
 		   self.horn.play()
            animation.onComplete.add(() => {
                const style = {
-                   font: '42px Arial',
+                   font: '42px VT323',
                    fill: '#ffffff',
                    stroke: 0x333333,
                    strokeThickness: 5,

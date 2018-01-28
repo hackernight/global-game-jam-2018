@@ -55,14 +55,15 @@ class Game extends Phaser.State {
     this.displayLevelName();
 
     if (this.game.global.numResets== 0){
-      const text = this.add.text(300, 50, "Your heart can't take more disappointment", {
-        font: '24px Arial', fill: '#ffffff', align: 'center'
+      const text = this.add.text(200, 50, "Can't Take Anymore", {
+        font: '24px BEON', fill: '#ff5526', align: 'center'
       });
+      text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
       text.anchor.set(0.5);
 
       this.game.time.events.add(2000, function() {
             //header.bg.remove()
-            this.game.add.tween(text).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
+            this.game.add.tween(text).to({y: 0}, 2000, Phaser.Easing.Linear.None, true);
             this.game.add.tween(text).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
           }, this);
       this.game.time.events.add(4000, function() {
@@ -346,8 +347,9 @@ for (var bh of spaceDebris){
 
     displayLevelName(){
       const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, this.game.global.level.name, {
-        font: '42px Arial', fill: '#ffffff', align: 'center'
+        font: '42px VT323', fill: '#5eff96', align: 'center'
       });
+      text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
       text.anchor.set(0.5);
 
       this.game.time.events.add(2000, function() {

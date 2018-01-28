@@ -19,18 +19,21 @@ class GameOverWin extends Phaser.State {
 
 
     const text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'You found love.', {
-      font: '42px Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 6, align: 'center'
+      font: '42px VT323', fill: '#ffffff', stroke: '#000000', strokeThickness: 6, align: 'center'
     });
+    text.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
     text.anchor.set(0.5);
 
     const text2 = this.add.text(this.game.width * 0.5, this.game.height * 0.5 + 44, 'Click to continue your search (endless mode)!', {
-      font: '20px Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 6, align: 'center'
+      font: '20px VT323', fill: '#ffffff', stroke: '#000000', strokeThickness: 6, align: 'center'
     });
+    text2.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
     text2.anchor.set(0.5);
 
     const text3 = this.add.text(this.game.width * 0.5, this.game.height * 0.5 + 68, 'Or quit and press \'R\' to go to the start', {
-      font: '20px Arial', fill: '#ffffff', stroke: '#000000', strokeThickness: 6, align: 'center'
+      font: '20px VT323', fill: '#ffffff', stroke: '#000000', strokeThickness: 6, align: 'center'
     });
+    text3.setShadow(5, 5, 'rgba(255,255,255,0.5)', 15);
     text3.anchor.set(0.5);
 
     this.saveVarsToLocalStorage();
