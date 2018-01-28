@@ -36,6 +36,7 @@ class Game extends Phaser.State {
     this.thud = this.game.add.audio('thud');
     this.bounce = this.game.add.audio('bounce');
     this.fire = this.game.add.audio('fire');
+    this.victory = this.game.add.audio('victory');
 
     //stuff for the background
     this.makeStars()
@@ -267,6 +268,7 @@ makeDebris(){
     twinkleStars = [];
     this.resetGlobalVariables();
     transmissions = [];
+    this.victory.play();
     this.game.state.start('leveltransition');
   }
 

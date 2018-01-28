@@ -33,6 +33,7 @@ class Preloader extends Phaser.State {
     this.game.load.audio('thud', ['assets/muzac/thud.wav']);
     this.game.load.audio('bounce', ['assets/muzac/bounce.wav']);
     this.game.load.audio('fire', ['assets/muzac/send_signal.wav']);
+    this.game.load.audio('victory', ['assets/muzac/victory.wav'])
 
 
     // setup loading and its events
