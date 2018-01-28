@@ -58,6 +58,16 @@ class Game extends Phaser.State {
         font: '24px Arial', fill: '#ffffff', align: 'center'
       });
       text.anchor.set(0.5);
+
+      this.game.time.events.add(2000, function() {
+            //header.bg.remove()
+            this.game.add.tween(text).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
+            this.game.add.tween(text).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
+          }, this);
+      this.game.time.events.add(4000, function() {
+        text.destroy()
+      })
+
     }
 
 
