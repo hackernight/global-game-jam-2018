@@ -1,0 +1,66 @@
+{ "frames": {
+   "victorysplashfull1 0.ase": {
+    "frame": { "x": 0, "y": 0, "w": 1024, "h": 768 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1024, "h": 768 },
+    "sourceSize": { "w": 1024, "h": 768 },
+    "duration": 100
+   },
+   "victorysplashfull1 1.ase": {
+    "frame": { "x": 1024, "y": 0, "w": 1024, "h": 768 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1024, "h": 768 },
+    "sourceSize": { "w": 1024, "h": 768 },
+    "duration": 100
+   },
+   "victorysplashfull1 2.ase": {
+    "frame": { "x": 2048, "y": 0, "w": 1024, "h": 768 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1024, "h": 768 },
+    "sourceSize": { "w": 1024, "h": 768 },
+    "duration": 100
+   },
+   "victorysplashfull1 3.ase": {
+    "frame": { "x": 3072, "y": 0, "w": 1024, "h": 768 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1024, "h": 768 },
+    "sourceSize": { "w": 1024, "h": 768 },
+    "duration": 100
+   },
+   "victorysplashfull1 4.ase": {
+    "frame": { "x": 4096, "y": 0, "w": 1024, "h": 768 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1024, "h": 768 },
+    "sourceSize": { "w": 1024, "h": 768 },
+    "duration": 100
+   },
+   "victorysplashfull1 5.ase": {
+    "frame": { "x": 5120, "y": 0, "w": 1024, "h": 768 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1024, "h": 768 },
+    "sourceSize": { "w": 1024, "h": 768 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.6",
+  "image": "/home/home/Documents/dev/global-game-jam-2018/assets/victorysplashfull1_sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 6144, "h": 768 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
