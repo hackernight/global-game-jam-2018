@@ -96,9 +96,23 @@ class Game extends Phaser.State {
 
     this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT, Phaser.Keyboard).onDown.add(this.endGame, this);
 
-  }
 
-    fireTransmission() {
+        this.game.allowedToFire = true;
+        this.game.time.events.loop(Phaser.Timer.SECOND, this.loadGun, this);
+      }
+
+
+    loadGun() {
+          this.game.allowedToFire = true;
+          this.startSatellite.speaker.tint = 0xffffff
+
+      }
+
+
+  fireTransmission() {
+    if (this.game.allowedToFire == true){
+      this.game.allowedToFire = false;
+      this.startSatellite.speaker.tint = 0xf45c42
       this.fire.volume = 0.2;
       this.fire.play();
       this.startSatellite.speaker.pulse();
@@ -120,7 +134,7 @@ class Game extends Phaser.State {
 
         transmissions.push(transmission);
     }
-
+}
     hitSatellite(body1, body2) {
       //  body1 is the transmission
       body1.isDeleted = true;
