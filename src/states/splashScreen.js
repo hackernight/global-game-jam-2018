@@ -7,7 +7,7 @@ class SplashScreen extends Phaser.State {
        var self = this;
        this.game.input.keyboard.onPressCallback = function(e){
          self.skipIntro();}
-
+		this.horn = this.game.add.audio('horn')
        const splash = new CenteredSprite(this.game, 'stl');
        splash.alpha = 0;
        const tween = this.game.add.tween(splash).to(
@@ -24,7 +24,7 @@ class SplashScreen extends Phaser.State {
 
            logo.animations.add('logo');
            const animation = logo.animations.play('logo', 15, false);
-
+		   self.horn.play()
            animation.onComplete.add(() => {
                const style = {
                    font: '42px Arial',
