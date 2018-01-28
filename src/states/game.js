@@ -99,7 +99,6 @@ class Game extends Phaser.State {
 
         this.game.allowedToFire = true;
         this.loadGun()
-        // this.game.time.events.loop(Phaser.Timer.SECOND, this.loadGun, this);
       }
 
 
