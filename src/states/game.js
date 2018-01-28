@@ -384,7 +384,8 @@ for (var bh of spaceDebris){
 
     if (this.game.global.level.lastLevel ==true ){
       //you beat level 4!  have a bonus for endless mode
-      this.game.global.numResets = this.game.global.numResets+1;
+      //clamp hearts to 3.
+      this.game.global.numResets = Math.min(this.game.global.numResets+1, 3);
     }
     this.levelMusic.stop();
     twinkleStars = [];
