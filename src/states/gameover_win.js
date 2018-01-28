@@ -12,7 +12,9 @@ class GameOverWin extends Phaser.State {
       this.replay()
       return
     }
-
+	this.relationship = this.game.add.audio('relationship');
+    this.relationship.loopFull(0.6);
+	
     var victory = new Victory(this.game, 0, 0)
 
 
