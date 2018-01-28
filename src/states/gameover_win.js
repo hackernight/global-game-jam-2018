@@ -48,7 +48,7 @@ class GameOverWin extends Phaser.State {
         currentLevel: 1,
         level: levels[0],
         win: false,
-        numResets: 0
+        numResets: 3
     };
   }
 

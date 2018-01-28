@@ -348,6 +348,10 @@ for (var bh of spaceDebris){
 
     resetGlobalVariables(){
       var currentLevel = this.game.global.currentLevel + 1;
+      if (this.game.global.level.lastLevel ==true ){
+        //you beat level 4!  have a bonus for endless mode
+        this.game.global.numResets = this.game.global.numResets+1;
+      }
       var levels = this.game.cache.getJSON('levels');
       var nextLevel = null;
       for(var level of levels){
