@@ -229,8 +229,8 @@ makeDebris(){
   }
   numDebris = this.game.rnd.integerInRange(this.game.global.level.minRocks, this.game.global.level.maxRocks)
   var rockimage = 'space-rock';
-  if (this.game.global.level.chadNebula > 0 && this.game.rnd.integerInRange(0, 10) ==1){
-    rockimage = 'chad-nebula';
+  if (this.game.global.level.chadNebula > 0 && this.game.rnd.integerInRange(1,5) ==1){
+    rockimage = 'the-chad-nebula';
     const text = this.add.text(this.game.width/4, 100, "Is that Chad Nebula?", {
       font: '24px BEON', fill: '#54ed36', align: 'center'
     });

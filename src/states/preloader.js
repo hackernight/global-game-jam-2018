@@ -20,7 +20,7 @@ class Preloader extends Phaser.State {
     this.game.load.image('start-satellite', 'assets/satbase1.png')
     this.game.load.image('radio-wave', 'assets/boopbase1.png')
     this.game.load.image('crate-object', 'assets/cratebase1.png')
-    this.game.load.image('chad-nebula', 'assets/markbase1.png')
+    this.game.load.image('the-chad-nebula', 'assets/markbase1.png')
     this.game.load.image('splash-header', 'assets/splashheader1_scaled.png')
     this.game.load.image('space-rock', 'assets/spacerock48x48.png')
     this.game.load.image('heartParticle', 'assets/lifeheartbase1.png')
